@@ -1,6 +1,7 @@
 
 #include "Database.h"
-
+#include <iostream>
+using namespace std;
 Database::Database(){}
 
 Database::~Database(){
@@ -10,11 +11,11 @@ Database::~Database(){
 
 bool Database::connectToDatabase(){
   bool connected = true;
-  string MY_HOSTNAME = "localhost";
-  string MY_DATABASE = "server";
-  string MY_USERNAME = "admin";
-  string MY_PASSWORD = "admin";
-  string MY_SOCKET = NULL;
+  const char* MY_HOSTNAME = "localhost";
+  const char* MY_DATABASE = "server";
+  const char* MY_USERNAME = "admin";
+  const char* MY_PASSWORD = "admin";
+  const char* MY_SOCKET = NULL;
   
   conn = mysql_init(NULL);
   

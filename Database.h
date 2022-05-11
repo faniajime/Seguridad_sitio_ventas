@@ -9,7 +9,7 @@ class Database {
     bool connectToDatabase();
     MYSQL* getConnection();
     private:
-      MYSQL* connl
+      MYSQL* conn;
    
 };
 
