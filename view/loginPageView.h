@@ -1,3 +1,6 @@
+#ifndef USUARIO_H
+#define USUARIO_H
+
 using namespace std;
 
 class loginPageView {
@@ -10,3 +13,4 @@ class loginPageView {
 
 
 };
+#endif

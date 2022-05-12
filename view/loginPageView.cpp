@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
-#include "loginPageView.hpp"
+#include "loginPageView.h"
 using namespace std;
 
 
@@ -9,8 +9,9 @@ loginPageView::loginPageView() {
   printPage();
 }
 loginPageView::~loginPageView() {
-  
-}
+
+} 
+
 
 
 void loginPageView::printPage() {
