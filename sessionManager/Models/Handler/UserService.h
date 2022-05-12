@@ -15,7 +15,8 @@ class UserService
     public:
     UserService ();
     ~UserService();
-     MYSQL *con;
+    MYSQL *con;
+    error();
     createUser(string nombre, string usuario, string email, int telefono, string contrasena, string direccion);
 
 };
