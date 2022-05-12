@@ -8,8 +8,7 @@ class Database {
     ~Database();
     bool connectToDatabase();
     MYSQL* getConnection();
-    private:
-      MYSQL* conn;
+    MYSQL* conn;
    
 };
 

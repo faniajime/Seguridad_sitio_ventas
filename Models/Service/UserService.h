@@ -3,7 +3,6 @@
 
 #include <mysql/mysql.h>
 #include <string>
-
 using namespace std;
 
 class UserService

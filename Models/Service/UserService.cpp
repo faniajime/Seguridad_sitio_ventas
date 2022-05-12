@@ -27,7 +27,7 @@ bool UserService::createUser(string nombre, string usuario, string email, int te
     if (conn==NULL){
         error();
     }
-    string query = "CALL crear_usuario( " + nombre + "," + usuario  + "," + email  + "," +  to_string(telefono)  + "," + contrasena  + "," + direccion  + ")"  ;
+    string query = "CALL crear_usuario( '" + nombre + "','" + usuario  + "','" + email  + "','" +  to_string(telefono)  + "','" + contrasena  + "','" + direccion  + "')"  ;
     if (mysql_query(conn,query.c_str())){
        error();
     }
