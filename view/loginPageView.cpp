@@ -38,10 +38,7 @@ loginPageView::loginPageView() {
       postResponse();
     }
 
-    }
-  
-
-  
+  }
 }
 loginPageView::~loginPageView() {
 
@@ -73,10 +70,9 @@ void loginPageView::printPage() {
          cout <<  "<div class='card-body p-5 text-center'>" << endl;
 
             cout << "<div class='mb-md-5 mt-md-4 pb-5'>" << endl;
-
               cout << "<h2 class='fw-bold mb-2 text-uppercase'>Login</h2>" << endl;
               cout << "<p class='text-white-50 mb-5'>Please enter your login and password!</p>" << endl;
-
+            cout<< "form action='login' method= 'POST'>"<<endl;
               cout << "<div class='form-outline form-white mb-4'>" << endl;
                 cout << "<input type='email' id='typeEmailX' class='form-control form-control-lg' />" << endl;
                 cout << "<label class='form-label' for='typeEmailX'>Email</label>" << endl;
@@ -90,7 +86,7 @@ void loginPageView::printPage() {
               cout << "<p class='small mb-5 pb-lg-2'><a class='text-white-50' href='#!'> Forgot password?</a></p>" << endl;
 
               cout << " <button class='btn btn-outline-light btn-lg px-5' type='submit'>Login</button>" << endl;
-
+              cout<<"</form>"<<endl;
              
             cout << "</div>" << endl;
 

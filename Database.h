@@ -1,4 +1,4 @@
-#ifndef DATABSE_H
+#ifndef DATABASE_H
 #define DATABASE_H
 #include <mysql/mysql.h>
 
