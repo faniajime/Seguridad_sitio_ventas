@@ -1,16 +1,58 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <cstring>
 #include "loginPageView.h"
 using namespace std;
 
 
 loginPageView::loginPageView() {
-  printPage();
+  
+  //userService = new UserService();
+  char* requestMethod = getenv("REQUEST_METHOD");
+  char* queryString = getenv("QUERY_STRING");
+  char* contentLength = getenv("CONTENT_LENGTH");
+  char* requestAddress = getenv("REMOTE_ADDR");
+  char* accessToken = getenv("HTTP_COOKIE");
+  int queryLength = 0;
+  int accessTokenLength = 0;
+
+  if (contentLength != NULL) {
+    queryLength = atoi(contentLength);
+    queryString = (char*)malloc(queryLength);
+    if(queryString != NULL) {
+      for (int pos = 0; pos < queryLength; pos++) {
+        queryString[pos] = fgetc(stdin);
+      }
+    }
+  }
+
+//  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
+
+  if (requestMethod != NULL) {
+    if (strcmp(requestMethod,"GET")== 0) {
+      getResponse();
+    }
+
+    if(requestMethod == "POST") {
+      postResponse();
+    }
+
+    }
+  
+
+  
 }
 loginPageView::~loginPageView() {
 
 } 
+bool loginPageView::getResponse() {
+  printPage();
+  return true;
+}
+bool loginPageView::postResponse() {
+  return true;
+}
 
 
 
@@ -18,7 +60,9 @@ void loginPageView::printPage() {
 
      cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
+    cout << "<html lang = 'en'" <<endl;
     cout << "<head> <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'rel='nofollow' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>" <<endl;
+    cout<<"<meta charset='utf-8'>"<<endl;
     cout << "<link rel='stylesheet' href='style.css'>" << endl;
     cout << "</head>" << endl;
    cout << "<section class='vh-100 gradient-custom'>" << endl;

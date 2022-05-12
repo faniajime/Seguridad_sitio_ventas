@@ -1,5 +1,5 @@
-#ifndef USUARIO_H
-#define USUARIO_H
+#ifndef LOGINPAGEVIEW_H
+#define LOGINPAGEVIEW_H
 
 using namespace std;
 
@@ -7,8 +7,8 @@ class loginPageView {
     public:
         loginPageView();
         ~loginPageView();
-        bool responseGET();
-        bool responsePOST();
+        bool getResponse();
+        bool postResponse();
         void printPage();
 
 
