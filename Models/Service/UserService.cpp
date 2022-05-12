@@ -1,8 +1,11 @@
 #include "UserService.h"
-
+#include "Database.cpp"
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
 
 UserService::UserService(){
-  db = new Database();
+  Database* db = new Database();
   if(db->connectToDatabase()){
     conn = db->getConnection();
   }else{
@@ -24,8 +27,8 @@ bool UserService::createUser(string nombre, string usuario, string email, int te
     if (conn==NULL){
         error();
     }
-    string query = "CALL crear_usuario( " + nombre + "," + usuario  + "," + email  + "," +  telefono  + "," + contrasena  + "," + direccion  + ")"  ;
-    if (mysql_query(conn,string_query)){
+    string query = "CALL crear_usuario( " + nombre + "," + usuario  + "," + email  + "," +  to_string(telefono)  + "," + contrasena  + "," + direccion  + ")"  ;
+    if (mysql_query(conn,query.c_str())){
        error();
     }
     return true;

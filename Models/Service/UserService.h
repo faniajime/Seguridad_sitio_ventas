@@ -1,21 +1,17 @@
-#ifndef userService_H
-#define userService_H
+#ifndef USERSERVICE_H
+#define USERSERVICE_H
 
-#include <string>
-#include "Database.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
 #include <mysql/mysql.h>
+#include <string>
 
 using namespace std;
 
 class UserService
 {
     public:
-    UserService ();
+    UserService();
     ~UserService();
-    MYSQL *con;
+    MYSQL *conn;
     void error();
     bool createUser(string nombre, string usuario, string email, int telefono, string contrasena, string direccion);
 

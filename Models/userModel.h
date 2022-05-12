@@ -30,7 +30,7 @@ class userModel
     void salirDelSistema();
 
     private:
-    string nombre, user, contrasena, email,direccion;
+    string nombre, user, contrasena, email, direccion;
     int telefono;
 
 };

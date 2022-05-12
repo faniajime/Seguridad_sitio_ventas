@@ -1,5 +1,6 @@
 
 #include "Database.h"
+#include <mysql/mysql.h>
 #include <iostream>
 using namespace std;
 Database::Database(){}
@@ -12,9 +13,9 @@ Database::~Database(){
 bool Database::connectToDatabase(){
   bool connected = true;
   const char* MY_HOSTNAME = "localhost";
-  const char* MY_DATABASE = "server";
-  const char* MY_USERNAME = "admin";
-  const char* MY_PASSWORD = "admin";
+  const char* MY_DATABASE = "hackeques";
+  const char* MY_USERNAME = "root";
+  const char* MY_PASSWORD = "holi";
   const char* MY_SOCKET = NULL;
   
   conn = mysql_init(NULL);
