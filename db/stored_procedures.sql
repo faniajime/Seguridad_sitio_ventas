@@ -65,12 +65,6 @@ SELECT * FROM PREGUNTAS;
 END;//
 
 DELIMITER //
-CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
-BEGIN
-    INSERT INTO producto (nombre,descripcion,valor,dueno) VALUES (nombre,descripcion,valor,dueno);
-END; //
-
-DELIMITER //
 CREATE PROCEDURE get_user_by_username( IN username varchar (255))
 BEGIN
 SELECT * FROM usuario WHERE username = username;
@@ -96,3 +90,44 @@ CREATE PROCEDURE validate_password( IN username varchar (255), IN password varch
 BEGIN
 Select count(username) from usuario WHERE usuario.username=username and usuario.password=password;
 END;//
+
+
+
+DELIMITER //
+CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
+BEGIN
+    INSERT INTO producto (nombre,descripcion,valor,dueno) VALUES (nombre,descripcion,valor,dueno);
+END; //
+
+DELIMITER //
+CREATE PROCEDURE actualizar_producto(IN id int(11),IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
+BEGIN
+UPDATE producto 
+    SET 
+    nombre = nombre,
+    descripcion = descripcion,
+    valor = valor,
+    dueno = dueno
+    WHERE producto.id = id;
+END;
+//
+
+
+
+
+DELIMITER //
+CREATE PROCEDURE handle_producto(IN id int(11), IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255), IN statement varchar(30))
+BEGIN
+	IF statement = "Insert" THEN
+    	INSERT INTO producto (nombre,descripcion,valor,dueno) VALUES (nombre,descripcion,valor,dueno);
+    ELSEIF statement = "Update" THEN
+    	UPDATE producto 
+        SET 
+        nombre = nombre,
+        descripcion = descripcion,
+        valor = valor,
+        dueno = dueno
+        WHERE producto.id = id;
+    END IF;
+END;
+//
