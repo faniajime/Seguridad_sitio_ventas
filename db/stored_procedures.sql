@@ -64,3 +64,30 @@ BEGIN
 SELECT * FROM PREGUNTAS;
 END;//
 
+
+DELIMITER //
+CREATE PROCEDURE get_user_by_username( IN username varchar (255))
+BEGIN
+SELECT * FROM usuario WHERE username = username;
+END;//
+
+DELIMITER //
+CREATE PROCEDURE username_exists( IN username varchar (255))
+BEGIN
+Select count(usuario) from usuario WHERE usuario=username;
+END;//
+
+
+
+DELIMITER //
+CREATE PROCEDURE email_exists( IN email varchar (255))
+BEGIN
+Select count(email) from usuario WHERE email=email;
+END;//
+
+
+DELIMITER //
+CREATE PROCEDURE validate_password( IN username varchar (255), IN password varchar(255))
+BEGIN
+Select count(username) from usuario WHERE usuario.username=username and usuario.password=password;
+END;//

@@ -29,7 +29,73 @@ bool UserService::createUser(string nombre, string usuario, string email, int te
     }
     string query = "CALL crear_usuario( '" + nombre + "','" + usuario  + "','" + email  + "','" +  to_string(telefono)  + "','" + contrasena  + "','" + direccion  + "')"  ;
     if (mysql_query(conn,query.c_str())){
-       error();
+      error();
+      return false;
     }
     return true;
+}
+
+bool UserService::checkUserExistByUsername(string username){
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  char* response = 0;
+  bool exists = false;
+  string query = "CALL username_exists( '" + username + "')"  ;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_use_result(conn);
+    if((row=mysql_fetch_row(res))!=NULL){
+      response = row[0];
+    }
+    if(response[0] == '1'){
+      exists = true;
+    }
+  }else{
+    error();
+    
+  }
+  mysql_free_result(res);
+  return exists;
+}
+bool UserService::checkUserExistByEmail(string email){
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    char* response = 0;
+    bool exists = false;
+    string query = "CALL email_exists( '" + email + "')"  ;
+    if(!mysql_query(conn,query.c_str())){
+      res = mysql_use_result(conn);
+      if((row=mysql_fetch_row(res))!=NULL){
+        response = row[0];
+      }
+      if(response[0] == '1'){
+        exists = true;
+      }
+    }else{
+      error();
+      
+    }
+    mysql_free_result(res);
+    return exists;
+}
+
+bool UserService::passwordCorrect(string username, string password){
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  char* response = 0;
+  bool exists = false;
+  string query = "CALL validate_password( '" + username + "','" + password + "')"  ;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_use_result(conn);
+    if((row=mysql_fetch_row(res))!=NULL){
+      response = row[0];
+    }
+    if(response[0] == '1'){
+      exists = true;
+    }
+  }else{
+    error();
+    
+  }
+  mysql_free_result(res);
+  return exists;
 }

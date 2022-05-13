@@ -13,6 +13,9 @@ class UserService
     MYSQL *conn;
     void error();
     bool createUser(string nombre, string usuario, string email, int telefono, string contrasena, string direccion);
+    bool checkUserExistByUsername(string username);
+    bool checkUserExistByEmail(string email);
+    bool passwordCorrect(string username, string password);
 
 };
 #endif
