@@ -1,20 +1,20 @@
-#include "parserHandler.h"
+#include "ParserHandler.h"
 #include <iostream>
 #include <cstring>
 
 using namespace std;
 
-parserHandler::parserHandler(){
+ParserHandler::ParserHandler(){
    // Initialize private variables
    ArgCnt = 0;
    for (int pos = 0; pos < MAX_ARGS; pos++)
       Name[pos] = Value[pos] = NULL;
 
 }
-parserHandler::~parserHandler(){}
+ParserHandler::~ParserHandler(){}
 
 
-void parserHandler::parseQuery (int queryLength, char* queryString){
+void ParserHandler::parseQuery (int queryLength, char* queryString){
 // Separate query_string into arguments 
    int start_name, end_name, start_value, end_value = -1;
    while (end_value < queryLength)
@@ -39,7 +39,7 @@ void parserHandler::parseQuery (int queryLength, char* queryString){
       ArgCnt++;
    }
 }
-char* parserHandler::copy_string(char *str, int start, int end)
+char* ParserHandler::copy_string(char *str, int start, int end)
 {
    // Create string
    char *copy = (char *)malloc(end-start+1);
@@ -54,10 +54,10 @@ char* parserHandler::copy_string(char *str, int start, int end)
    return copy;
 }
 
-//--------------------------------------------------------------
+
 // Function for decoding CGI strings.
-//--------------------------------------------------------------
-void parserHandler::decode_string(char *str)
+
+void ParserHandler::decode_string(char *str)
 {
    const char *digits = "0123456789ABCDEF";
    int length = strlen(str);
@@ -87,10 +87,9 @@ void parserHandler::decode_string(char *str)
    str[outpos] = '\0';
 }
 
-//--------------------------------------------------------------
+
 // Argument lookup by name.
-//--------------------------------------------------------------
-char *parserHandler::GetArg(const char name[])
+char *ParserHandler::GetArg(const char name[])
 {
    // Lookup argument by name
    for (int arg=0; arg<ArgCnt; arg++)
@@ -104,7 +103,7 @@ char *parserHandler::GetArg(const char name[])
 //--------------------------------------------------------------
 // Argument name lookup by number.
 //--------------------------------------------------------------
-char *parserHandler::GetName(int index)
+char *ParserHandler::GetName(int index)
 {
    // Lookup argument by location
    if ((index >= 0) && (index < ArgCnt))
@@ -116,7 +115,7 @@ char *parserHandler::GetName(int index)
 //--------------------------------------------------------------
 // Argument value lookup by number.
 //--------------------------------------------------------------
-char *parserHandler::GetValue(int index)
+char *ParserHandler::GetValue(int index)
 {
    // Lookup argument by location
    if ((index >= 0) && (index < ArgCnt))
@@ -128,7 +127,7 @@ char *parserHandler::GetValue(int index)
 //--------------------------------------------------------------
 // Return number of CGI arguments.
 //--------------------------------------------------------------
-int parserHandler::GetCnt()
+int ParserHandler::GetCnt()
 {
    return ArgCnt;
 }

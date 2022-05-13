@@ -7,8 +7,10 @@ using namespace std;
 
 
 loginPageView::loginPageView() {
-  
-  //userService = new UserService();
+
+  parserHandler = new ParserHandler();
+  userHandler = new UserService();
+
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
   char* contentLength = getenv("CONTENT_LENGTH");

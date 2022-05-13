@@ -5,11 +5,11 @@
 
 #define MAX_ARGS 1000
 
-class parserHandler{
+class ParserHandler{
 
     public:
-    parserHandler();
-    ~parserHandler();
+    ParserHandler();
+    ~ParserHandler();
     void parseQuery(int queryLength, char* queryString);
     char *copy_string(char *str, int start, int end);
     void decode_string(char *str);
