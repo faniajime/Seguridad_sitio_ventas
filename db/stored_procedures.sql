@@ -64,3 +64,10 @@ BEGIN
 SELECT * FROM PREGUNTAS;
 END;//
 
+DELIMITER //
+CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
+BEGIN
+    INSERT INTO producto (nombre,descripcion,valor,dueno) VALUES (nombre,descripcion,valor,dueno);
+END; //
+
+
