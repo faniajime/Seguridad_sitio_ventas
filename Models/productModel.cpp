@@ -4,6 +4,13 @@
 
 /*Constructor*/
 
+productModel::productModel(){
+	this->name = "Hola";
+	this->description = "description";
+	this->owner = "owner";
+	this->cost = 100;
+}
+
 productModel::productModel(string name, string description, string owner, int cost){
 	this->name = name;
 	this->description = description;

@@ -7,7 +7,7 @@ using namespace std;
 class productModel
 {
      public:
-
+        productModel();
 	productModel(string,string,string, int);
 	void setName(string);
         void setDescription(string);
