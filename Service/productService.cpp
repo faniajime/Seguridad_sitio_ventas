@@ -1,4 +1,4 @@
-include "productService.h"
+#include "productService.h"
 #include "Database.cpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,25 +29,25 @@ bool productService::createProduct(string name, string description, string owner
   if (conn==NULL){
       error();
   }
-  string query = "CALL crear_producto( " + name + "," + description  + "," + to_string(cost)  + "," +  owner  + ")" ;
-  if (mysql_query(conn,string_query)){
+  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + to_string(cost) + "','" +  owner+ "')"  ;
+  if (mysql_query(conn,query.c_str())){
       error();
   }
   return true;
 }
-
+/*
 productModel productService::getProductById(int id)
 {
 
 }
-
+*/
 bool productService::updateProduct(int id,string name, string description, string owner, int cost)
 {
   if (conn==NULL){
       error();
   }
-  string query = "CALL actualizar_producto( "to_string(id)+ ","  + name + "," + description  + "," + to_string(cost)  + "," +  owner  + ")" ;
-  if (mysql_query(conn,string_query)){
+  string query = "CALL actualizar_producto( '"+to_string(id)+"','" + name+ "','" + description  + "','" + to_string(cost) + "','" +  owner+ "')" ;
+  if (mysql_query(conn,query.c_str())){
       error();
   }
   return true;
@@ -59,7 +59,7 @@ bool productService::deleteProduct(int id)
     error();
   }
   string query = "CALL eliminar_producto("+to_string(id)+")";
-  if (mysql_query(conn,string_query)){
+  if (mysql_query(conn,query.c_str())){
       error();
   }
   return true;
