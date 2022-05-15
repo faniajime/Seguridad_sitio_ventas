@@ -11,9 +11,7 @@ int main(){
     //us->createUser("Fabiola", "fejimene", "bla", 888888, "asdasd", "asdasd");
     
     productService* ps = new productService();
-    if(ps->getProductById(9)){
-        cout<<"Se muestra el producto";
-    }
+    ps->getProductById(9);
     /*
     if(ps->updateProduct(8,"Queque","zanahoria", "kzv",1000)){
         cout<<"Se actualizo el producto";
