@@ -14,8 +14,8 @@ bool Database::connectToDatabase(){
   bool connected = true;
   const char* MY_HOSTNAME = "localhost";
   const char* MY_DATABASE = "hackeques";
-  const char* MY_USERNAME = "root";
-  const char* MY_PASSWORD = "holi";
+  const char* MY_USERNAME = "karen";
+  const char* MY_PASSWORD = "maria";
   const char* MY_SOCKET = NULL;
   
   conn = mysql_init(NULL);
