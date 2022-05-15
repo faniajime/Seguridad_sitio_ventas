@@ -50,7 +50,32 @@ bool loginPageView::getResponse() {
   return true;
 }
 bool loginPageView::postResponse() {
+  char * userEmail = parserHandler-> GetArg("userEmail");
+  char * userPassword = parserHandler->GetArg("userPassword");
+  if (userEmail != NULL) {
+    if (userPassword != NULL) {
+      if (userHandler-> passwordCorrect(userEmail, userPassword)) {
+        cout << "Content-type: text/html" <<endl <<endl;
+        cout << " user has logged in successfully" << endl;
+        
+      } else {
+        // error message
+      }
+    } else {
+      //password error
+    }
+  } else {
+    //email error
+  }
+
   return true;
+}
+
+void loginPageView::parseQuery(char* queryString, int contentLength, ParserHandler* parserHandler) {
+
+  if (queryString != NULL && contentLength != NULL) {
+    parserHandler->parseQuery(contentLength, queryString);
+  }
 }
 
 
@@ -74,7 +99,7 @@ void loginPageView::printPage() {
             cout << "<div class='mb-md-5 mt-md-4 pb-5'>" << endl;
               cout << "<h2 class='fw-bold mb-2 text-uppercase'>Login</h2>" << endl;
               cout << "<p class='text-white-50 mb-5'>Please enter your login and password!</p>" << endl;
-            cout<< "form action='login' method= 'POST'>"<<endl;
+            cout<< "<form action='postLogin.cgi' method= 'POST'>"<<endl;
               cout << "<div class='form-outline form-white mb-4'>" << endl;
                 cout << "<input type='email' id='typeEmailX' class='form-control form-control-lg' />" << endl;
                 cout << "<label class='form-label' for='typeEmailX'>Email</label>" << endl;
