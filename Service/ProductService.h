@@ -16,7 +16,7 @@ class productService
     MYSQL *conn;
     void error();
     bool createProduct(string name, string description, string owner, int cost);
-    //productModel getProductById(int id);
+    /*productModel*/ bool getProductById(int id);
     bool updateProduct(int id,string name, string description, string owner, int cost);
     bool deleteProduct(int id);
 
