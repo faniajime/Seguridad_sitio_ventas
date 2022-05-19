@@ -62,7 +62,7 @@ productModel productService::getProductById(int id)
       }
       cout << endl;
 
-      // Leer registro a registro y mostrar:
+      // Leer registro a registro:
       for(l = 0; l < i; l++) {
          row = mysql_fetch_row(res);       
       }
