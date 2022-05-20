@@ -1,5 +1,7 @@
-#include "../Models/userModel.h"
+//#include "../Models/userModel.h"
 //#include "UserService.cpp"
+#include "../Service/ProductService.h"
+#include "../Models/productModel.h"
 #include "ProductService.h"
 #include <iostream>
 
@@ -10,8 +12,8 @@ int main(){
     //UserService* us = new UserService();
     //us->createUser("Fabiola", "fejimene", "bla", 888888, "asdasd", "asdasd");
     
-    productService* ps = new productService();
-    ps->getProductById(9);
+    //productService* ps = new productService();
+    //ps->getProductById(9);
     /*
     if(ps->updateProduct(8,"Queque","zanahoria", "kzv",1000)){
         cout<<"Se actualizo el producto";
@@ -21,4 +23,6 @@ int main(){
         cout<<"Se elimino el producto";
     }
     */
+
+ 
 }

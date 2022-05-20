@@ -126,6 +126,12 @@ SELECT * FROM producto WHERE producto.id = id;
 END;//
 
 DELIMITER //
+CREATE PROCEDURE obtener_productos()
+BEGIN
+SELECT * FROM producto;
+END;//
+
+DELIMITER //
 CREATE PROCEDURE handle_producto(IN id int(11), IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255), IN statement varchar(30))
 BEGIN
 	IF statement = "Insert" THEN

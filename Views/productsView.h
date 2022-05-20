@@ -1,7 +1,9 @@
 #ifndef PRODUCTSVIEW_H
 #define PRODUCTSVIEW_H
 
-//#include "../Service/productService.h"
+#include "../Service/ProductService.h"
+#include "../Models/productModel.h"
+
 using namespace std;
 
 class productsView {
@@ -11,7 +13,10 @@ class productsView {
         void printPage();
     
     private:
-        //productService * productHandler;
+        ProductService * productHandler;
+        productModel* product;
+        list<productModel> productsList;
+
 
 
 };

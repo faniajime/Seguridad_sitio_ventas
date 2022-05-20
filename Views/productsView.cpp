@@ -8,7 +8,7 @@ using namespace std;
 
 productsView::productsView() {
 
-  //productHandler = new productService();
+  productHandler = new ProductService();
 
 }
 
@@ -17,6 +17,12 @@ productsView::~productsView() {
 } 
 
 void productsView::printPage() {
+    this->productsList = productHandler->getProducts();
+    int listSize = this->productsList.size();
+    string name = "";
+    string description = "";
+    int cost = 0;
+    string owner = "";
     cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
     cout << "<html lang='en'>" << endl;
@@ -28,23 +34,24 @@ void productsView::printPage() {
         cout << "<title>Productos</title>" << endl;
     cout << "</head>" << endl;
     cout << "<body>" << endl;
-        cout << "<h1>Productos</h1>" << endl;
+        cout << "<h1 style='text-align:center; color:navy;'>Productos</h1>" << endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;
         cout << "<div class='d-flex justify-content-center row'>" << endl;
             cout << "<div class='col-md-10'>" << endl;
-                for(int i = 0; i<5;++i){
+                for(const auto& prod : productsList)
+                {
                     cout << "<div class='row p-2 bg-white border rounded'>" << endl;
                         cout << "<div class='col-md-6 mt-1'>" << endl;
-                            cout << "<h5>Carlota</h5>" << endl;
+                            cout << "<h5>"+prod.name+"</h5>" << endl;
                             cout << "<div class='d-flex flex-row'>" << endl;
-                                cout << "<span>Usuario: kzv</span>" << endl;
+                                cout << "<span>Usuario: "+prod.owner+"</span>" << endl;
                             cout << "</div>" << endl;
                             cout << "<div class='mt-1 mb-1 spec-1'>" << endl;
-                                cout << "<span>Sabor chocolate con frutas</span><span class='dot'></span></div>" << endl;                        
+                                cout << "<span>"+prod.description+"</span><span class='dot'></span></div>" << endl;                        
                         cout << "</div>" << endl;
                         cout << "<div class='align-items-center align-content-center col-md-3 border-left mt-1'>" << endl;
                             cout << "<div class='d-flex flex-row align-items-center'>" << endl;
-                                cout << "<h4 class='mr-1'>₡12 000</h4>" << endl;
+                                cout << "<h4 class='mr-1'>₡ "+to_string(prod.cost)+"</h4>" << endl;
                             cout << "</div>" << endl;
                             cout << "<div class='d-flex flex-column mt-4'><button class='btn btn-primary btn-sm' type='button'>Agregar al carrito</button><button class='btn btn-outline-primary btn-sm mt-2' type='button'>Comprar</button></div>" << endl;
                         cout << "</div>" << endl;
