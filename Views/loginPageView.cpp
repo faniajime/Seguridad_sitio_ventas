@@ -29,6 +29,7 @@ loginPageView::loginPageView() {
       }
     }
   }
+  
   //parseQuery(queryString,queryLength,parserHandler);
 
 //  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
