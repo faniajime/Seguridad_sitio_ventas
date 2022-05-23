@@ -16,8 +16,5 @@ class productsView {
         ProductService * productHandler;
         productModel* product;
         list<productModel> productsList;
-
-
-
 };
 #endif
