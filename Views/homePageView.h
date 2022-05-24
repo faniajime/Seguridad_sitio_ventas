@@ -3,6 +3,7 @@
 
 #include "../Service/ParserHandler.h"
 #include "../Service/UserService.h"
+#include "../Service/SessionService.h"
 #include "HeaderMenuView.h"
 using namespace std;
 
@@ -17,6 +18,7 @@ class homePageView {
         ParserHandler * parserHandler;
         UserService * userHandler;
         HeaderMenuView * headerMenuView;
+        SessionService * sessionService;
 
 };
 #endif
