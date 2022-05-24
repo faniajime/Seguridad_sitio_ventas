@@ -1,22 +1,22 @@
-#include "UserService.h"
-#include "Database.cpp"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include "UserService.h"
 
 UserService::UserService(){
   Database* db = new Database();
   if(db->connectToDatabase()){
     conn = db->getConnection();
   }else{
-    printf("Hubo un error con la conexión");
+   // printf("Hubo un error con la conexión");
     exit(1);
   }
 }
 
 
 void UserService::error(){
-    fprintf(stderr, "%s\n", mysql_error(conn));
+  //  fprintf(stderr, "%s\n", mysql_error(conn));
     mysql_close(conn);
     exit(1);
 }
@@ -78,12 +78,12 @@ bool UserService::checkUserExistByEmail(string email){
     return exists;
 }
 
-bool UserService::passwordCorrect(string username, string password){
+bool UserService::passwordCorrect(string email, string password){
   MYSQL_ROW row;
   MYSQL_RES* res;
   char* response = 0;
   bool exists = false;
-  string query = "CALL validate_password( '" + username + "','" + password + "')"  ;
+  string query = "CALL validate_password( '" + email + "','" + password + "')"  ;
   if(!mysql_query(conn,query.c_str())){
     res = mysql_use_result(conn);
     if((row=mysql_fetch_row(res))!=NULL){

@@ -6,11 +6,10 @@
 #include "loginPageView.h"
 using namespace std;
 
-
 loginPageView::loginPageView() {
 
   parserHandler = new ParserHandler();
-  //userHandler = new UserService();
+  userHandler = new UserService();
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -63,11 +62,21 @@ bool loginPageView::postResponse() {
   if (userEmail != NULL) {
     if (userPassword != NULL) {
 
-        cout << "Content-type: text/html\n\n"; 
-        cout << "what is up?" << endl;
+     // bool emailExists = userHandler->checkUserExistByEmail(email);
+      bool passwordExists = userHandler->passwordCorrect(email, password);
+      if(passwordExists) {
+      cout << "Content-type: text/html\n\n"; 
+        cout << "YOU HAVE LOGGED IN SUCCESFULLY" << endl;
         cout << email << endl;
         cout << password << endl;
 
+
+      } else {
+        cout << "Content-type: text/html\n\n"; 
+        cout << "it's not working!" << endl;
+
+      }
+  
     } else {
       //password error
     }
