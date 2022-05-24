@@ -2,7 +2,7 @@
 #define LOGINPAGEVIEW_H
 
 #include "../Service/ParserHandler.h"
-#include "../Service/UserService.h"
+//#include "../Service/UserService.h"
 using namespace std;
 
 class loginPageView {
@@ -16,7 +16,7 @@ class loginPageView {
     
     private:
         ParserHandler * parserHandler;
-        UserService * userHandler;
+        //UserService * userHandler;
 
 
 };

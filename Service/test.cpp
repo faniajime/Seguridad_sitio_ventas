@@ -1,6 +1,7 @@
 #include "../Models/userModel.h"
 //#include "UserService.cpp"
 #include "ProductService.h"
+#include "Encryptor.h"
 #include <iostream>
 
 
@@ -10,8 +11,8 @@ int main(){
     //UserService* us = new UserService();
     //us->createUser("Fabiola", "fejimene", "bla", 888888, "asdasd", "asdasd");
     
-    productService* ps = new productService();
-    ps->getProductById(9);
+    //productService* ps = new productService();
+    //ps->getProductById(9);
     /*
     if(ps->updateProduct(8,"Queque","zanahoria", "kzv",1000)){
         cout<<"Se actualizo el producto";
@@ -21,4 +22,16 @@ int main(){
         cout<<"Se elimino el producto";
     }
     */
+   Encryptor* encrypt = new Encryptor();
+    string password = "holi";
+    string compare = "adios";
+    string output = encrypt->encrypt(password);
+    cout << "SHA is " << output << endl;
+    string output2 = encrypt->encrypt(output);
+    if(output ==output2){
+        cout << "Passwords are equal" << endl;
+    }
+    if(encrypt->theSame(password, output)){
+        cout << "Yes they are" <<endl;
+    }
 }

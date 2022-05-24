@@ -9,7 +9,7 @@ using namespace std;
 loginPageView::loginPageView() {
 
   parserHandler = new ParserHandler();
-  userHandler = new UserService();
+  //userHandler = new UserService();
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -34,6 +34,7 @@ loginPageView::loginPageView() {
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
       getResponse();
+      
     }
 
     if(requestMethod == "POST") {
@@ -41,6 +42,8 @@ loginPageView::loginPageView() {
     }
 
   }
+  char* response = parserHandler->GetArg("hello");
+  cout << "hello" << response[0] <<endl;
 }
 loginPageView::~loginPageView() {
 
@@ -53,17 +56,17 @@ bool loginPageView::postResponse() {
   char * userEmail = parserHandler-> GetArg("userEmail");
   char * userPassword = parserHandler->GetArg("userPassword");
   if (userEmail != NULL) {
-    if (userPassword != NULL) {
-      if (userHandler-> passwordCorrect(userEmail, userPassword)) {
-        cout << "Content-type: text/html" <<endl <<endl;
-        cout << " user has logged in successfully" << endl;
+    //if (userPassword != NULL) {
+      //if (userHandler-> passwordCorrect(userEmail, userPassword)) {
+        //cout << "Content-type: text/html" <<endl <<endl;
+        //cout << " user has logged in successfully" << endl;
         
-      } else {
+      //} else {
         // error message
-      }
-    } else {
+      //}
+    //} else {
       //password error
-    }
+    //}
   } else {
     //email error
   }
