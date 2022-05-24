@@ -3,6 +3,7 @@
 
 #include "../Service/ProductService.h"
 #include "../Models/productModel.h"
+#include "HeaderMenuView.h"
 
 using namespace std;
 
