@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <cstring>
+#include <string>
 #include "homePageView.h"
 using namespace std;
 
@@ -11,7 +12,6 @@ homePageView::homePageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
-  sessionService = new SessionService();
 
 
   char* requestMethod = getenv("REQUEST_METHOD");
@@ -63,7 +63,8 @@ bool homePageView::postResponse() {
     if (userPassword != NULL) {
       bool passwordExists = userHandler->passwordCorrect(email, password);
       if(passwordExists) {
-      bool cookiesSet =sessionService->setCookies(email);
+        sessionService = new SessionService();
+      bool cookiesSet = sessionService->setCookies(email);
       printPage();
 
 
@@ -104,7 +105,7 @@ void homePageView::printPage()
     headerMenuView->printHeader();
     cout << "<body>" << endl;
     cout<< "<h2> testing that it works</h2>" << endl; 
-    cout << "<h2>printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+    cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
     cout << "</body>" << endl;
 
 }

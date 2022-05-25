@@ -56,35 +56,6 @@ bool loginPageView::getResponse() {
 }
 
 bool loginPageView::postResponse() {
-  char * userEmail = parserHandler-> GetArg("userEmail");
-  char * userPassword = parserHandler->GetArg("userPassword");
-  string email = userEmail;
-  string password = userPassword;
-  if (userEmail != NULL) {
-    if (userPassword != NULL) {
-
-     // bool emailExists = userHandler->checkUserExistByEmail(email);
-      bool passwordExists = userHandler->passwordCorrect(email, password);
-      if(passwordExists) {
-      cout << "Content-type: text/html\n\n"; 
-        cout << "YOU HAVE LOGGED IN SUCCESFULLY" << endl;
-        cout << email << endl;
-        cout << password << endl;
-
-
-      } else {
-        cout << "Content-type: text/html\n\n"; 
-        cout << "it's not working!" << endl;
-
-      }
-  
-    } else {
-      //password error
-    }
-  } else {
-    //email error
-  }
-
   return true;
 }
 
@@ -133,7 +104,7 @@ void loginPageView::printPage() {
               cout<<"</form>"<<endl;
             cout << "</div>" << endl;
             cout << "<div>" << endl;
-              cout << "<p class='mb-0'>Don't have an account? <a href='#!' class='text-white-50 fw-bold'>Sign Up</a>" << endl;
+              cout << "<p class='mb-0'>Don't have an account? <a href='register' class='text-white-50 fw-bold'>Sign Up</a>" << endl;
               cout<< "</p>" << endl;
             cout << "</div>" << endl;
           cout << "</div>" << endl;

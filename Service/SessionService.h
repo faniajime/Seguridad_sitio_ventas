@@ -11,6 +11,7 @@ class SessionService{
     bool setCookies(string);
     string getCookieKey();
     string getCookieValue();
-
+    bool validateCookie();
+    void removeCookie();
 };
 #endif
