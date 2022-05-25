@@ -90,7 +90,7 @@ bool SessionService::sessionExists(string token){
       if((row=mysql_fetch_row(res))!=NULL){
         response = row[0];
       }
-      if(response[0] == '1'){
+      if(response[0] >= '1'){
         exists = true;
       }
     }

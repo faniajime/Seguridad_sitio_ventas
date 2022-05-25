@@ -3,7 +3,7 @@
 #include "../Service/ProductService.h"
 #include "../Models/productModel.h"
 #include "ProductService.h"
-#include "Encryptor.h"
+#include "SessionService.h"
 #include <iostream>
 
 
@@ -24,16 +24,21 @@ int main(){
         cout<<"Se elimino el producto";
     }
     */
-   Encryptor* encrypt = new Encryptor();
-    string password = "holi";
-    string compare = "adios";
-    string output = encrypt->encrypt(password);
-    cout << "SHA is " << output << endl;
-    string output2 = encrypt->encrypt(output);
-    if(output ==output2){
-        cout << "Passwords are equal" << endl;
+   SessionService* sesssion = new SessionService();
+    string email = "fabij@gmail.com";
+    string ses = "3bd0e0b6c1892c739272276ea6bfddc8556f06c432bdbb189892d6e9b382f0f4";
+    sesssion->createSession(email);
+    if(sesssion->sessionExists(ses)){
+        cout << "Sesssion exists" <<endl;
     }
-    if(encrypt->theSame(password, output)){
-        cout << "Yes they are" <<endl;
+    SessionService* sess = new SessionService();
+    sess->deleteSession(ses);
+
+    cout <<"here" <<endl;
+    if(!(sess->sessionExists(ses))){
+        cout << "Sesssion was deleted" <<endl;
     }
 }
+
+
+
