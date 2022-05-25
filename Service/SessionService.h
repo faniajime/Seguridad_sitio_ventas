@@ -13,5 +13,8 @@ class SessionService{
     string getCookieValue();
     bool validateCookie();
     void removeCookie();
+    bool sessionExists();
+    private:
+    char * accessToken;
 };
 #endif

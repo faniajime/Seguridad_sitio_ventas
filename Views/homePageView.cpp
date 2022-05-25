@@ -12,7 +12,7 @@ homePageView::homePageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
-
+   sessionService = new SessionService();
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -63,7 +63,7 @@ bool homePageView::postResponse() {
     if (userPassword != NULL) {
       bool passwordExists = userHandler->passwordCorrect(email, password);
       if(passwordExists) {
-        sessionService = new SessionService();
+     //   sessionService = new SessionService();
       bool cookiesSet = sessionService->setCookies(email);
       printPage();
 
@@ -92,9 +92,8 @@ homePageView::~homePageView() {
 
 void homePageView::printPage() 
 {
-       sessionService = new SessionService();
-    string cookieKey = sessionService->getCookieKey();
-    string cookieValue = sessionService->getCookieValue();
+
+
      cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
     cout << "<html lang = 'en'" <<endl;
@@ -105,7 +104,13 @@ void homePageView::printPage()
     headerMenuView->printHeader();
     cout << "<body>" << endl;
     cout<< "<h2> testing that it works</h2>" << endl; 
-    cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+        if (sessionService->getCookieKey() == "UserID") {
+     string cookieKey = sessionService->getCookieKey();
+     string cookieValue = sessionService->getCookieValue();
+                 cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+    }
+
+
     cout << "</body>" << endl;
 
 }
