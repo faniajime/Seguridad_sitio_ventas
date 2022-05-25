@@ -1,8 +1,18 @@
 #include "SessionService.h"
 #include <iostream>
 #include <string>
+#include "encryptionService.h"
+
 using namespace std;
-SessionService::SessionService(){}
+
+SessionService::SessionService(){
+    Database* db = new Database();
+    if(db->connectToDatabase()){
+        conn = db->getConnection();
+    }
+
+}
+
 SessionService::~SessionService(){}
 
 bool SessionService::setCookies(string cookieString){
@@ -42,4 +52,49 @@ void SessionService::removeCookie() {
 
 }
 
+
+string SessionService::createSession(string email){
+    
+    Encryptor* encryptor = new Encryptor();
+    if (conn==NULL){
+        return NULL;
+    }
+    string token = encryptor->encrypt(email + "pelos");
+    string query = "CALL crear_sesion( '" + email + "','" + token  + "','" + to_string(true) + "')";
+
+    if (mysql_query(conn,query.c_str())){
+      return NULL;
+    }
+    return token;
+}
+    
+bool SessionService::deleteSession(string token){
+    if (conn==NULL){
+        return false;
+    }
+    string query = "CALL borrar_sesion( '" + token + "')"  ;
+    if (mysql_query(conn,query.c_str())){
+      return false;
+    }
+    return true;
+}
+
+bool SessionService::sessionExists(string token){
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    char* response = 0;
+    bool exists = false;
+    string query = "CALL get_sesion( '" + token + "')"  ;
+    if(!mysql_query(conn,query.c_str())){
+      res = mysql_use_result(conn);
+      if((row=mysql_fetch_row(res))!=NULL){
+        response = row[0];
+      }
+      if(response[0] == '1'){
+        exists = true;
+      }
+    }
+    mysql_free_result(res);
+    return exists;
+}
 
