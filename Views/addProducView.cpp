@@ -11,9 +11,73 @@ using namespace std;
 
 
 addProductView::addProductView(){
+  parserHandler = new ParserHandler();
+  sessionHandler = new SessionService();
+  productHandler = new ProductService();
+
+  
+  char* requestMethod = getenv("REQUEST_METHOD");
+  char* queryString = getenv("QUERY_STRING");
+  char* contentLength = getenv("CONTENT_LENGTH");
+  char* requestAddress = getenv("REMOTE_ADDR");
+  int queryLength = 0;
+  int accessTokenLength = 0;
+
+  if (contentLength != NULL) {
+    queryLength = atoi(contentLength);
+    queryString = (char*)malloc(queryLength);
+    if(queryString != NULL) {
+      for (int pos = 0; pos < queryLength; pos++) {
+        queryString[pos] = fgetc(stdin);
+      }
+    }
+  }
+  
+  //parseQuery(queryString,queryLength,parserHandler);
+
+//  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
+  if (queryString != NULL && contentLength != NULL) {
+    parserHandler->parseQuery(queryLength, queryString);
+  }
+  if (requestMethod != NULL) {
+    if (strcmp(requestMethod,"GET")== 0) {
+      getResponse();
+    }
+
+    if (strcmp(requestMethod,"POST") ==0) {
+      postResponse();
+    }
+
+  }
 }
 addProductView::~addProductView(){
 }
+
+bool addProductView::getResponse() {
+  printPage();
+  return true;
+}
+
+bool addProductView::postResponse() {
+  string name = (string) parserHandler-> GetArg("name");
+  //Convertir el precio de string a int
+  char* priceText = parserHandler->GetArg("price");
+  int price = atoi(priceText);
+  //int price = stoi((string) parserHandler->GetArg("price"));
+  string description = parserHandler->GetArg("description");
+ // string owner = sessionService.getCookieValue("email"); //Conseguir el email de la sesion
+    string owner = "test";
+  //Se debe crear validacion de los datos para verificar que todo esta correcto o no vacio.
+  productHandler->createProduct(name, description, owner, price); 
+
+  cout << "Content-type: text/html\n\n"; 
+  cout <<"<marquee> producto ingresado! </marquee>" << endl;
+
+
+
+  return true;
+}
+
 
 void addProductView::printPage(){
 

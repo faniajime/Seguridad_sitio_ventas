@@ -1,5 +1,8 @@
 #ifndef ADDPRODUCTVIEW_H
 #define ADDPRODUCTVIEW__H
+#include "../Service/ParserHandler.h"
+#include "../Service/SessionService.h"
+#include "../Service/ProductService.h" 
 
 using namespace std;
 
@@ -9,9 +12,14 @@ class addProductView{
 
 	addProductView();
 	~addProductView();
-	 void printPage();
+        bool getResponse();
+        bool postResponse();
+	void printPage();
 
 	private:
+	ParserHandler * parserHandler;
+        SessionService * sessionHandler;
+        ProductService * productHandler;
 
 };
 #endif
