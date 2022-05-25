@@ -44,7 +44,8 @@ string SessionService::getCookieValue(){
 }
 
 bool SessionService::validateCookie() {
-
+    // retrieve cookie from database, and compare it with the cookie value saved on the browser
+     //(do getCookieKey to validate there is a UserId, then getCookieValue to compare it with database)
 }
 
 void SessionService::removeCookie() {
