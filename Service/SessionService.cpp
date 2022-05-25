@@ -58,7 +58,7 @@ string SessionService::createSession(string email){
         return NULL;
     }
     string token = encryptor->encrypt(email + "pelos");
-    string query = "CALL crear_sesion( '" + email + "','" + token  + "','" + to_string(true) + "')";
+    string query = "CALL crear_sesion( '" +email+ "','" +token+ "','" + to_string(true)+"')";
 
     if (mysql_query(conn,query.c_str())){
       return NULL;
@@ -76,7 +76,13 @@ bool SessionService::deleteSession(string token){
     }
     return true;
 }
-
+bool SessionService::sessionExistsAsCookie(){
+    if (accessToken != NULL) {
+        return true;
+    } else {
+        return false;
+    }
+}
 bool SessionService::sessionExists(string token){
     MYSQL_ROW row;
     MYSQL_RES* res;

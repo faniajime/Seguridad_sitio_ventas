@@ -32,17 +32,9 @@ void HeaderMenuView::printHeader() {
       cout << "</li>" << endl;
     cout << "</ul>" << endl;
     cout << "<form class='form-inline my-2 my-lg-0'>" <<endl;
- //   if (sessionService->getCookieValue() != ""){
       cout << "<a href='login'>" <<endl; 
-      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log Out</button>" << endl;
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log Out/Log In</button>" << endl;
       cout << "</a>"<<endl;
-
-//    } else {
-      cout << "<a href='login'>" <<endl; 
-      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log In</button>" << endl;
-      cout << "</a>"<<endl;
- //   }
-    
       cout << "<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Carrito</button>"<<endl;
     cout << "</form>"<<endl;
   cout << "</div>"<<endl;

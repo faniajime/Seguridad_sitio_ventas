@@ -11,7 +11,7 @@ loginPageView::loginPageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
-  sessionService = new SessionService();
+
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -39,11 +39,15 @@ loginPageView::loginPageView() {
   }
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
-      if (sessionService->sessionExists()) {
-         if (sessionService->getCookieValue()!=""){
+        sessionService = new SessionService();
+        if (sessionService->sessionExistsAsCookie()){
+           string value =sessionService->getCookieValue();
+      if (sessionService->sessionExists(value)) {
+              sessionService->deleteSession(value);
               sessionService->removeCookie();
+        }
+       
      }
-      }
    //   if (sessionService->getCookieValue()!=""){
   //            sessionService->removeCookie();
  //     }

@@ -18,6 +18,7 @@ class SessionService{
     string createSession(string email);
     bool deleteSession(string token);
     bool sessionExists(string token);
+    bool sessionExistsAsCookie();
     MYSQL *conn;
     char * accessToken;
     
