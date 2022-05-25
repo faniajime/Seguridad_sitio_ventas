@@ -1,25 +1,24 @@
-#ifndef LOGINPAGEVIEW_H
-#define LOGINPAGEVIEW_H
+#ifndef HOMEPAGEVIEW_H
+#define HOMEPAGEVIEW_H
 
 #include "../Service/ParserHandler.h"
 #include "../Service/UserService.h"
+#include "../Service/SessionService.h"
 #include "HeaderMenuView.h"
 using namespace std;
 
-class loginPageView {
+class homePageView {
     public:
-        loginPageView();
-        ~loginPageView();
-     //   void parseQuery(char*, int, ParserHandler*); // se deberia quitar tal vez de aqui
+        homePageView();
+        ~homePageView();
         bool getResponse();
         bool postResponse();
         void printPage();
-    
     private:
         ParserHandler * parserHandler;
         UserService * userHandler;
         HeaderMenuView * headerMenuView;
-
+        SessionService * sessionService;
 
 };
 #endif

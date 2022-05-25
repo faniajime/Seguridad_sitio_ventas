@@ -2,6 +2,7 @@
 #define USERSERVICE_H
 
 #include <mysql/mysql.h>
+#include "Database.h"
 #include <string>
 using namespace std;
 

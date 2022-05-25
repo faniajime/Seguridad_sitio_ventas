@@ -18,9 +18,10 @@ class productModel
         string getOwner();
 	int getCost();
         void listProducts();
-        
+        string name, description, owner;
+        int cost;
     private:
-    string name, description, owner;
-    int cost;
+    
+    
 };
 #endif

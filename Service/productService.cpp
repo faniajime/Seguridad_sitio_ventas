@@ -1,11 +1,11 @@
-#include "productService.h"
+#include "ProductService.h"
 #include "Database.cpp"
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
 
 
-productService::productService(){
+ProductService::ProductService(){
   Database* db = new Database();
   if(db->connectToDatabase()){
     conn = db->getConnection();
@@ -16,15 +16,15 @@ productService::productService(){
 }
 
 
-void productService::error(){
+void ProductService::error(){
     fprintf(stderr, "%s\n", mysql_error(conn));
     mysql_close(conn);
     exit(1);
 }
 
-productService::~productService(){}
+ProductService::~ProductService(){}
 
-bool productService::createProduct(string name, string description, string owner, int cost)
+bool ProductService::createProduct(string name, string description, string owner, int cost)
 {
   if (conn==NULL){
       error();
@@ -36,7 +36,7 @@ bool productService::createProduct(string name, string description, string owner
   return true;
 }
 
-productModel productService::getProductById(int id)
+productModel ProductService::getProductById(int id)
 {
   MYSQL_ROW row;
   MYSQL_RES* res;
@@ -55,12 +55,13 @@ productModel productService::getProductById(int id)
     string name,description,cost,owner;
 
     // Información sobre columnas usando mysql_fetch_fields:
-      cout << endl << "Informacion sobre columnas:" << endl;
+      //cout << endl << "Informacion sobre columnas:" << endl;
       columna = mysql_fetch_fields(res);
+      /*
       for(l = 0; l < j; l++) {
          cout << "Nombre: " << columna[l].name << endl;
       }
-      cout << endl;
+      cout << endl;*/
 
       // Leer registro a registro:
       for(l = 0; l < i; l++) {
@@ -80,7 +81,54 @@ productModel productService::getProductById(int id)
   return *producto;
 }
 
-bool productService::updateProduct(int id,string name, string description, string owner, int cost)
+list<productModel> ProductService::getProducts()
+{
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  productModel* product;
+  string query = "CALL obtener_productos( )" ;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_store_result(conn);
+
+    //************
+    int i = (int) mysql_num_rows(res);//cantidad de filas
+    int j = (int) mysql_num_fields(res);//cantidad de columnas   
+
+    MYSQL_FIELD     *columna;
+    int l,k;
+    //unsigned long   *lon;
+    string name,description,cost,owner;
+
+    // Información sobre columnas usando mysql_fetch_fields:
+      //cout << endl << "Informacion sobre columnas:" << endl;
+      columna = mysql_fetch_fields(res);
+      /*
+      for(l = 0; l < j; l++) {
+         cout << "Nombre: " << columna[l].name << endl;
+      }
+      cout << endl;
+    */
+      // Leer registro a registro:
+      for(l = 0; l < i; l++) {
+         row = mysql_fetch_row(res);       
+        name = row[1];
+        description = row[2];
+        cost = row[3];
+        owner = row[4];
+        product = new productModel(name,description,owner,stoi(cost));
+        productsList.push_back(*product);
+      }
+      
+    //***************************
+  }else{
+    error();
+    
+  }
+  mysql_free_result(res);
+  return productsList;
+}
+
+bool ProductService::updateProduct(int id,string name, string description, string owner, int cost)
 {
   if (conn==NULL){
       error();
@@ -92,7 +140,7 @@ bool productService::updateProduct(int id,string name, string description, strin
   return true;
 }
   
-bool productService::deleteProduct(int id)
+bool ProductService::deleteProduct(int id)
 {
   if (conn==NULL){
     error();
