@@ -8,7 +8,7 @@ using namespace std;
 
 
 homePageView::homePageView() {
-
+  refreshCount = 0;
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
@@ -56,6 +56,7 @@ bool homePageView::getResponse() {
 }
 
 bool homePageView::postResponse() {
+
   char * userEmail = parserHandler->GetArg("userEmail");
   char * userPassword = parserHandler->GetArg("userPassword");
   string email = userEmail;
@@ -73,14 +74,16 @@ bool homePageView::postResponse() {
         } else {
           sessionService->setCookies(mockToken);
         }
-               
-
       }
-
+        if (refreshCount == 0) {
+          refreshCount++;
+          cout << "Content-type: text/html\n\n"; 
+          cout <<"<meta http-equiv='refresh' content='0'>" << endl;
+      }
       printPage();
       } else {
         cout << "Content-type: text/html\n\n"; 
-        cout << "it's not working!" << endl;
+        cout << "oops, something went wrong!" << endl;
 
       }
   
@@ -113,12 +116,22 @@ void homePageView::printPage()
     cout << "</head>" << endl;
     headerMenuView->printHeader();
     cout << "<body>" << endl;
-    cout<< "<h2> testing that it works</h2>" << endl; 
-        if (sessionService->getCookieKey() == "UserID") {
-    string cookieKey = sessionService->getCookieKey();
-     string cookieValue = sessionService->getCookieValue();
-                 cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+    cout<<" <div class='col-xs-1 text-center'>"<< endl;
+    cout<< "<h1> Welcome to our Virtual Market! Product delivery is not guaranteed.</h1>" << endl; 
+    if (sessionService->sessionExistsAsCookie()) {
+      cout << "<a href='sellPage'>" <<endl; 
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Start Selling</button>" << endl;
+      cout << "</a>"<<endl;          
+   } else {
+       cout << "<a href='login'>" <<endl; 
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log In to start selling products</button>" << endl;
+      cout << "</a>"<<endl;
    }
+        cout << "<a href='buyPage'>" <<endl; 
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Browse product catalog</button>" << endl;
+      cout << "</a>"<<endl;
+    cout<<"</div>"<<endl;
+        
 
 
     cout << "</body>" << endl;

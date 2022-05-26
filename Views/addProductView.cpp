@@ -54,38 +54,55 @@ addProductView::~addProductView(){
 }
 
 bool addProductView::getResponse() {
+  printHtmlHeader();
   printPage();
   return true;
 }
 
 bool addProductView::postResponse() {
+  bool sessionExists = false;
   string name = parserHandler-> GetArg("name");
   string priceText = parserHandler->GetArg("price");
   int price = stoi(priceText);
   string description = parserHandler->GetArg("description");
-  string token = sessionHandler->getCookieValue();
-  string owner = sessionHandler->getUserFromToken(token);
-  productHandler->createProduct(name, description, owner, price); 
-  printPage(); 
-  cout <<" producto ingresado!" << endl;
-  cout << owner<< endl;
-  cout << token<< endl;
+  bool cookieExists = sessionHandler->sessionExistsAsCookie();
+  if (cookieExists) {
+    sessionExists = sessionHandler->sessionExists(sessionHandler->getCookieValue());
+    if (sessionExists) {
+      string token = sessionHandler->getCookieValue();
+      string owner = sessionHandler2->getUserFromToken(token);
+      productHandler->createProduct(name, description, owner, price); 
+      printHtmlHeader();
+      cout <<"<big>Your product: "<<name<<" is now being sold.</big>" << endl;
+      printPage(); 
 
-
-
+    }
+  } else {
+    printHtmlHeader();
+    printErrorPage();
+  }
+  
   return true;
 }
-
-
-void addProductView::printPage(){
-
-cout << "Content-type: text/html" << endl << endl;
+void addProductView::printHtmlHeader() {
+  cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
     cout << "<html lang = 'en'" <<endl;
     cout << "<head> <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'rel='nofollow' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>" <<endl;
     cout<<"<meta charset='utf-8'>"<<endl;
     cout << "<link rel='stylesheet' href='style.css'>" << endl;
     cout << "</head>" << endl;
+}
+void addProductView::printErrorPage(){
+    headerMenuView->printHeader();
+    cout << "<div class = text-center>"<<endl;
+    cout <<"<big class ='text-center'> You cannot add a product without starting a session. Please log in to sell products.</big>" <<endl;
+    cout << "<a href='login'>" <<endl; 
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Go to Log In page</button>" << endl;
+      cout << "</div>"<<endl;
+}
+
+void addProductView::printPage(){
     headerMenuView->printHeader();
    cout << "<section class='vh-100 gradient-custom'>" << endl;
   cout << "<div class='container py-5 h-100'>" << endl;

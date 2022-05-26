@@ -16,6 +16,8 @@ class addProductView{
     bool getResponse();
     bool postResponse();
 	void printPage();
+	void printErrorPage();
+	void printHtmlHeader();
 
 	private:
 	ParserHandler * parserHandler;
