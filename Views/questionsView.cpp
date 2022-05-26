@@ -12,10 +12,15 @@ questionsView::questionsView() {
   parserHandler = new ParserHandler();
   //userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
+  questionService = new QuestionService();
+  questionService2 = new QuestionService();
+  questionService3 = new QuestionService();
+
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
   char* contentLength = getenv("CONTENT_LENGTH");
+  char* requestAddress = getenv("REMOTE_ADDR");
   int queryLength = 0;
   int accessTokenLength = 0;
 
@@ -28,19 +33,22 @@ questionsView::questionsView() {
       }
     }
   }
+  
+  //parseQuery(queryString,queryLength,parserHandler);
 
 //  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
-
+  if (queryString != NULL && contentLength != NULL) {
+    parserHandler->parseQuery(queryLength, queryString);
+  }
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
-
       getResponse();
-      
     }
 
-    if(requestMethod == "POST") {
+    if (strcmp(requestMethod,"POST") ==0) {
       postResponse();
     }
+
   }
 }
 
@@ -48,14 +56,14 @@ questionsView::~questionsView() {
 
 } 
 bool questionsView::getResponse() {
-  questionService = new QuestionService();
+  
   questions = questionService->getQuestions();
   printPage();
   return true;
 }
 
 bool questionsView::postResponse() {
-  questionService2 = new QuestionService();
+
   char * userEmail = parserHandler->GetArg("userEmail");
   char * userQuestion = parserHandler->GetArg("question");
   string email = userEmail;
@@ -63,12 +71,9 @@ bool questionsView::postResponse() {
   if (userEmail != NULL) {
     if (userQuestion != NULL) {
       questionService2->addQuestion(email,question);
-      questionService = new QuestionService();
+      questions = questionService3->getQuestions();
       printPage();
     }
-  }else {
-    cout << "Content-type: text/html\n\n"; 
-    cout << "it's not working!" << endl;
   }
   return true;
 }
@@ -87,7 +92,7 @@ void questionsView::printPage() {
         cout << "<section><br/><br/>" << endl;
         cout << "<h2 class='text-center mb-4 pb-2 text-primary fw-bold'>Contactenos</h2>" << endl;
         cout << "<p class='text-center mb-5'>En esta página podrá encontrar preguntas, sugerencias y retroalimentación a la página, así como enviar sus propias sugerencias.</p>" << endl;
-              cout<< "<form action='questions' method= 'POST' style='padding-left:20vh;padding-right:20vh;'>"<<endl;
+              cout<< "<form action='questions' method='POST' style='padding-left:20vh;padding-right:20vh;'>"<<endl;
               cout << "<div class='form-outline form-white mb-4'>" << endl;
               cout << "<label class='form-label' for='email'>Correo Electronico:</label>" << endl;
               cout << "<input name='userEmail' type='email' id='email' class='form-control form-control-lg' />" << endl;
