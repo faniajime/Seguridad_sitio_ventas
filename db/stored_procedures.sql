@@ -88,7 +88,7 @@ END;//
 DELIMITER //
 CREATE PROCEDURE validate_password( IN email varchar (255), IN password varchar(255))
 BEGIN
-Select count(username) from usuario WHERE usuario.email=email and usuario.contrasena=password;
+Select count(usuario) from usuario WHERE usuario.email=email and usuario.contrasena=password;
 END;//
 
 xz

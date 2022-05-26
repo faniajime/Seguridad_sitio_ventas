@@ -61,7 +61,7 @@ bool homePageView::postResponse() {
   char * userEmail = parserHandler->GetArg("userEmail");
   char * userPassword = parserHandler->GetArg("userPassword");
   string email = userEmail;
-  string password = encrypter->encrypt(userPassword);
+  string password = encrypter->encrypt(userPassword);  
   string token;
   if (userEmail != NULL) {
     if (userPassword != NULL) {
