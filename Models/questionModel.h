@@ -10,9 +10,8 @@ class questionModel
     questionModel();
     questionModel(string email, string question, string id);
     ~questionModel();
+    string email, pregunta, id;
 
-    private:
-    string email, question, id;
 
 };
 #endif

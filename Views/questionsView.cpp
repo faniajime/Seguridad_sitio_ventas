@@ -33,6 +33,7 @@ questionsView::questionsView() {
 
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
+
       getResponse();
       
     }
@@ -47,12 +48,28 @@ questionsView::~questionsView() {
 
 } 
 bool questionsView::getResponse() {
+  questionService = new QuestionService();
+  questions = questionService->getQuestions();
   printPage();
   return true;
 }
 
 bool questionsView::postResponse() {
-  printPage();
+  questionService2 = new QuestionService();
+  char * userEmail = parserHandler->GetArg("userEmail");
+  char * userQuestion = parserHandler->GetArg("question");
+  string email = userEmail;
+  string question = userQuestion;
+  if (userEmail != NULL) {
+    if (userQuestion != NULL) {
+      questionService2->addQuestion(email,question);
+      questionService = new QuestionService();
+      printPage();
+    }
+  }else {
+    cout << "Content-type: text/html\n\n"; 
+    cout << "it's not working!" << endl;
+  }
   return true;
 }
 
@@ -70,26 +87,29 @@ void questionsView::printPage() {
         cout << "<section><br/><br/>" << endl;
         cout << "<h2 class='text-center mb-4 pb-2 text-primary fw-bold'>Contactenos</h2>" << endl;
         cout << "<p class='text-center mb-5'>En esta página podrá encontrar preguntas, sugerencias y retroalimentación a la página, así como enviar sus propias sugerencias.</p>" << endl;
-              cout<< "<form action='questions' method= 'POST'>"<<endl;
+              cout<< "<form action='questions' method= 'POST' style='padding-left:20vh;padding-right:20vh;'>"<<endl;
               cout << "<div class='form-outline form-white mb-4'>" << endl;
-              cout << "<input name='userEmail' type='email' id='typeEmailX' class='form-control form-control-lg' />" << endl;
-              cout << "<label class='form-label' for='typeEmailX'>Email</label>" << endl;
+              cout << "<label class='form-label' for='email'>Correo Electronico:</label>" << endl;
+              cout << "<input name='userEmail' type='email' id='email' class='form-control form-control-lg' />" << endl;
               cout << "</div>"<< endl;
               cout << "<div class='form-outline form-white mb-4'>" <<endl;
-              cout << "<input name='userPassword' type='password' id='typePasswordX' class='form-control form-control-lg' />" << endl;
-              cout << "<label class='form-label' for='typePasswordX'>Password</label>" << endl;
+              cout << "<label class='form-label' for='question'>Pregunta, sugerencia o queja:</label>" << endl;
+              cout << "<textarea name='question' type='text' style='height:200px;font-size:14pt;' id='question' rows='3' class='form-control'></textarea>" << endl;
               cout << "</div>" << endl;
-              cout << "<p class='small mb-5 pb-lg-2'><a class='text-white-50' href='#!'> Forgot password?</a></p>" << endl;
-              cout << " <button class='btn btn-outline-light btn-lg px-5' type='submit'>Login</button>" << endl;
+              cout << "<div class='row' style='text-align:center'><div class='col text-center'><button class='btn btn-primary btn-sm' style='align-content: center;' type='submit'>Enviar</button></div></div>" << endl;
               cout<<"</form>"<<endl;
-        cout << "<div class='row' style='text-align:center'><div class='col text-center'><button class='btn btn-primary btn-sm' style='align-content: center;' type='button'>Contactanos</button></div></div>" << endl;
+
         cout << "<br/> <br/><h4 class='text-center mb-4 pb-2 text-primary fw-bold'>Sugerencias y preguntas anteriores</h4>" << endl;
         cout << "<div class='row' style='padding: 5vh;'>" << endl;
-        for(int i = 0; i<5;++i){
-            cout << "<div class='col-md-6 col-lg-4 mb-4'>" << endl;
-            cout << "<h6 class='mb-3 text-primary'><i class='far fa-paper-plane text-primary pe-2'></i> A simple question?</h6>" << endl;
-            cout << "<p><strong><u>Absolutely!</u></strong> We work with top payment companies which guarantees your safety and security. All billing information is stored on our payment processing partner.</p>" << endl;
-            cout << "</div>" <<endl;
+        if(questions.size() >0){
+          for(const auto& question : questions){
+              cout << "<div class='col-md-6 col-lg-4 mb-4'>" << endl;
+              cout << "<h6 class='mb-3 text-primary'><i class='far fa-paper-plane text-primary pe-2'></i> Retroalimentacion</h6>" << endl;
+              cout << "<p>" << question.pregunta << "</p>" << endl;
+              cout << "</div>" <<endl;
+          }
+        }else{
+          cout << "<p><strong>No hay preguntas aun...</strong></p>" <<endl;
         }
     cout << "</div>" <<endl;
     cout << "</section>" <<endl;

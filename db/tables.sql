@@ -15,9 +15,6 @@ CREATE TABLE preguntas(
 	email varchar(255),
 	pregunta varchar(255) NOT NULL,
 	PRIMARY KEY (id),
-	FOREIGN KEY (usuario) references usuario(usuario)
-	ON DELETE CASCADE
-	ON UPDATE CASCADE
 );
 
 CREATE TABLE respuestas(
@@ -36,7 +33,7 @@ CREATE TABLE producto(
 	id INT NOT NULL AUTO_INCREMENT ,
 	nombre varchar(255) NOT NULL,
 	descripcion varchar(255) NOT NULL,
-	valor varchar(255) NOT NULL, 
+	valor INT NOT NULL, 
 	dueno VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (dueno) references usuario (usuario)
@@ -67,7 +64,7 @@ CREATE TABLE carrito(
 
 CREATE TABLE sesion(
 	email VARCHAR(255) NOT NULL,
-	token_sesion VARCHAR(255) NOT NULL PRIMARY KEY,
+	token_sesion VARCHAR(255) NOT NULL,
 	activo VARCHAR(5) NOT NULL,
-	fecha DATETIME NOT NULL
+	fecha DATETIME NOT NULL, 
 );

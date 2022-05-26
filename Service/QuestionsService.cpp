@@ -19,74 +19,43 @@ bool QuestionService::addQuestion(string pregunta, string email){
     if (conn==NULL){
         return false;
     }
-    string query = "CALL crear_pregunta( '" + pregunta + "','" + usuario  + "','" + email  + "','" +  to_string(telefono)  + "','" + contrasena  + "','" + direccion  + "')"  ;
-    if (mysql_query(conn,query.c_str())){
+    string query = "CALL crear_pregunta( '" +  email + "','" +  pregunta + "')"  ;
+    if (!mysql_query(conn,query.c_str())){
       return false;
     }
     return true;
 }
 
-bool UserService::checkUserExistByUsername(string username){
-  MYSQL_ROW row;
-  MYSQL_RES* res;
-  char* response = 0;
-  bool exists = false;
-  string query = "CALL username_exists( '" + username + "')"  ;
-  if(!mysql_query(conn,query.c_str())){
-    res = mysql_use_result(conn);
-    if((row=mysql_fetch_row(res))!=NULL){
-      response = row[0];
-    }
-    if(response[0] == '1'){
-      exists = true;
-    }
-  }else{
-    error();
-    
-  }
-  mysql_free_result(res);
-  return exists;
-}
-bool UserService::checkUserExistByEmail(string email){
-    MYSQL_ROW row;
-    MYSQL_RES* res;
-    char* response = 0;
-    bool exists = false;
-    string query = "CALL email_exists( '" + email + "')"  ;
-    if(!mysql_query(conn,query.c_str())){
-      res = mysql_use_result(conn);
-      if((row=mysql_fetch_row(res))!=NULL){
-        response = row[0];
-      }
-      if(response[0] == '1'){
-        exists = true;
-      }
-    }else{
-      error();
-      
-    }
-    mysql_free_result(res);
-    return exists;
-}
 
-bool UserService::passwordCorrect(string email, string password){
+list<questionModel> QuestionService::getQuestions(){
   MYSQL_ROW row;
   MYSQL_RES* res;
-  char* response = 0;
-  bool exists = false;
-  string query = "CALL validate_password( '" + email + "','" + password + "')"  ;
+  questionModel* question;
+  list<questionModel> questionList;
+  string query = "CALL get_preguntas( )" ;
   if(!mysql_query(conn,query.c_str())){
-    res = mysql_use_result(conn);
-    if((row=mysql_fetch_row(res))!=NULL){
-      response = row[0];
-    }
-    if(response[0] == '1'){
-      exists = true;
-    }
+    res = mysql_store_result(conn);
+    int i = (int) mysql_num_rows(res);//cantidad de filas
+    int j = (int) mysql_num_fields(res);//cantidad de columnas   
+
+    MYSQL_FIELD *columna;
+    int l,k;
+    string id, email, pregunta;
+
+    columna = mysql_fetch_fields(res);
+    for(l = 0; l < i; l++) {
+        row = mysql_fetch_row(res);     
+        id = row[0];  
+        email = row[1];
+        pregunta = row[2];
+        question = new questionModel(email,pregunta, id);
+        questionList.push_back(*question);
+      }
   }else{
-    error();
+    return questionList;
     
   }
   mysql_free_result(res);
-  return exists;
+  return questionList;
+
 }

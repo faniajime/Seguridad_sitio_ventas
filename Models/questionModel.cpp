@@ -6,12 +6,16 @@ using namespace std;
 /*Constructor*/
 questionModel::questionModel(string email, string question, string id){
     this->email = email;
-    this->question = question;
+    this->pregunta = question;
     this->id = id;
 }
 
 questionModel::questionModel(){
     this->email = "";
-    this->question = "";
+    this->pregunta = "";
     this->id = "";
+}
+
+questionModel::~questionModel(){
+    
 }

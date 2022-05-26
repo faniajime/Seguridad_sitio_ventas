@@ -4,7 +4,7 @@
 #include <mysql/mysql.h>
 #include "Database.h"
 #include <string>
-#include <vector>
+#include <list>
 #include "../Models/questionModel.h"
 using namespace std;
 
@@ -15,7 +15,7 @@ class QuestionService
     ~QuestionService();
     MYSQL *conn;
     bool addQuestion(string email, string question);
-    vector<questionModel> getQuestions();
+    list<questionModel> getQuestions();
 
 };
 #endif
