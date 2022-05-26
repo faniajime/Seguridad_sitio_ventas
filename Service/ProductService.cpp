@@ -51,7 +51,7 @@ productModel ProductService::getProductById(int id)
     MYSQL_FIELD     *columna;
     int l,k;
     unsigned long   *lon;
-    string name,description,cost,owner;
+    string name,description,cost,owner, id;
 
     // Información sobre columnas usando mysql_fetch_fields:
       //cout << endl << "Informacion sobre columnas:" << endl;
@@ -66,11 +66,12 @@ productModel ProductService::getProductById(int id)
       for(l = 0; l < i; l++) {
          row = mysql_fetch_row(res);       
       }
+      id = row[0];
       name = row[1];
       description = row[2];
       cost = row[3];
       owner = row[4];
-      producto = new productModel(name,description,owner,stoi(cost));
+      producto = new productModel(name,description,owner,stoi(cost), stoi(id));
     //***************************
   }else{
     error();
@@ -96,7 +97,7 @@ list<productModel> ProductService::getProducts()
     MYSQL_FIELD     *columna;
     int l,k;
     //unsigned long   *lon;
-    string name,description,cost,owner;
+    string name,description,cost,owner, id;
 
     // Información sobre columnas usando mysql_fetch_fields:
       //cout << endl << "Informacion sobre columnas:" << endl;
@@ -114,7 +115,7 @@ list<productModel> ProductService::getProducts()
         description = row[2];
         cost = row[3];
         owner = row[4];
-        product = new productModel(name,description,owner,stoi(cost));
+        product = new productModel(name,description,owner,stoi(cost), stoi(id));
         productsList.push_back(*product);
       }
       

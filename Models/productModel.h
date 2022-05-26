@@ -8,7 +8,7 @@ class productModel
 {
      public:
         productModel();
-	productModel(string,string,string, int);
+	productModel(string,string,string, int, int);
 	void setName(string);
         void setDescription(string);
         void setCost(int);
@@ -19,6 +19,7 @@ class productModel
 	int getCost();
         void listProducts();
         string name, description, owner;
+        int id;
         int cost;
     private:
     

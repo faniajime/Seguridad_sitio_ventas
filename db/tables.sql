@@ -34,26 +34,17 @@ CREATE TABLE producto(
 	nombre varchar(255) NOT NULL,
 	descripcion varchar(255) NOT NULL,
 	valor varchar(255) NOT NULL, 
-	dueno VARCHAR(255) NOT NULL,
+	dueno VARCHAR(255) NOT NULL
 	PRIMARY KEY (id),
 	FOREIGN KEY (dueno) references usuario (usuario)
 		ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE TABLE ordenes(
-	id INT NOT NULL AUTO_INCREMENT ,
-	dueno VARCHAR(255) NOT NULL,
-	FECHA DATETIME NOT NULL, 
-	PRIMARY KEY(id),
-	FOREIGN KEY (dueno) references usuario(usuario)
-		ON DELETE CASCADE
-		ON UPDATE CASCADE
-);
 
 CREATE TABLE carrito(
-	idorden INT NOT NULL,
+	usuario VARCHAR(255) NOT NULL,
 	idproducto INT NOT NULL,
-	FOREIGN KEY (idorden) references ordenes(id)
+	FOREIGN KEY (usuario) references usuario(usuario)
 		ON DELETE CASCADE
 		ON UPDATE CASCADE,
 	FOREIGN KEY (idproducto )references producto(id)

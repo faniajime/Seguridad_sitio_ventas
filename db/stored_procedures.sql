@@ -187,3 +187,51 @@ BEGIN
     where sesion.token_sesion = token_sesion;
 END;
 //
+
+
+DELIMITER //
+CREATE PROCEDURE add_to_cart( IN user varchar (255), IN idproduct INT)
+BEGIN
+	INSERT INTO carrito (usuario,idproducto) VALUES (user, idproduct);
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE remove_from_cart( IN user varchar (255), IN idproduct INT)
+BEGIN
+	DELETE FROM carrito WHERE usuario = user AND idproducto=idproduct;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE delete_cart( IN user varchar (255))
+BEGIN
+	DELETE FROM carrito WHERE usuario = user;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE get_total( IN user varchar (255))
+BEGIN
+	SELECT SUM(valor) FROM producto 
+    RIGHT JOIN carrito on carrito.idproducto = producto.id
+    WHERE carrito.usuario = user;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE buy_cart( IN user varchar (255))
+BEGIN
+	DELETE FROM producto WHERE id IN (SELECT productoid FROM carrito where usuario=user);
+    DELETE FROM carrito WHERE usuario=user;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE get_cart( IN user varchar (255))
+BEGIN
+	SELECT * FROM producto 
+    RIGHT JOIN carrito on producto.id = carrito.idproducto
+    WHERE carrito.usuario = user;
+END;
+//

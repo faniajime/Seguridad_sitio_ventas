@@ -9,13 +9,15 @@ productModel::productModel(){
 	this->description = "description";
 	this->owner = "owner";
 	this->cost = 100;
+	this->id = 0;
 }
 
-productModel::productModel(string name, string description, string owner, int cost){
+productModel::productModel(string name, string description, string owner, int cost, int id){
 	this->name = name;
 	this->description = description;
 	this->owner = owner;
 	this->cost = cost;
+	this->id = id;
 
 }
 
