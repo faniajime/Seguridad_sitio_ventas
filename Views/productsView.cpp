@@ -87,10 +87,12 @@ void productsView::printPage() {
     headerView->printHeader();
     cout << "<body>" << endl;
         cout << "<h1 style='text-align:center; color:navy;'>Productos</h1>" << endl;
+        cout << "<div class='row' style='text-align:center'>" <<endl;
         cout << "<form action='buyPage' method= 'POST' class='navbar-form pull-left'>" <<endl;
         cout << "<input type='text' class='span2' name='keyword'>" <<endl;
-        cout << "<button type='submit' class='btn'>Buscar</button>" <<endl;
+        cout << "<button type='submit' class='btn btn-secondary btn-sm'>Buscar</button>" <<endl;
         cout << "</form>" <<endl;
+        cout << "</div>" <<endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;
         cout << "<div class='d-flex justify-content-center row'>" << endl;
             cout << "<div class='col-md-10'>" << endl;
