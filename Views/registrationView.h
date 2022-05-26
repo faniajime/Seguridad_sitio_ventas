@@ -4,6 +4,7 @@
 #include "../Service/ParserHandler.h"
 #include "../Service/UserService.h"
 #include "HeaderMenuView.h"
+#include "../Service/encryptionService.h"
 using namespace std;
 
 class registrationView {
@@ -19,6 +20,7 @@ class registrationView {
         UserService * userHandler2;
         UserService * userHandler3;
         HeaderMenuView * headerMenuView;
-
+        Encryptor * encrypter;
+        
 };
 #endif

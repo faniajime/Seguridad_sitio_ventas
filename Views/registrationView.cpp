@@ -14,6 +14,7 @@ registrationView::registrationView() {
   userHandler2 = new UserService();
   userHandler3 = new UserService();
   headerMenuView = new HeaderMenuView();
+  encrypter = new Encryptor();
   
 
   char* requestMethod = getenv("REQUEST_METHOD");
@@ -66,12 +67,14 @@ bool registrationView::postResponse()
 
   string email = userEmail;
   string user = userId;
+
   if (userEmail != NULL && userPassword != NULL && userId != NULL) 
   {
     bool emailExists = userHandler->checkUserExistByEmail(email);
     bool userExists = userHandler2->checkUserExistByUsername(user);
     if(!emailExists && !userExists)
     {
+        string encryptedPassword = encrypter->encrypt(userPassword);
         if(userHandler3->createUser(userName,userId,userEmail,stoi(phoneNumber),userPassword,userDirection))
         {
             printPage();
