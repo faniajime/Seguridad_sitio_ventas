@@ -22,6 +22,7 @@ class ProductService
     list<productModel> getProducts();
     bool updateProduct(int id,string name, string description, string owner, int cost);
     bool deleteProduct(int id);
+    list<productModel> searchProductByKey(string keyword); //Gets a list of productos containiing keyword
 
 };
 #endif

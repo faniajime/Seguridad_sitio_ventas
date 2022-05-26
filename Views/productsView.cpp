@@ -1,3 +1,6 @@
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -51,7 +54,12 @@ bool productsView::getResponse() {
 }
 
 bool productsView::postResponse() {
-     printPage();
+  char* keyword = parserHandler->GetArg("keyword");
+  string key = keyword;
+  if (keyword != NULL) {
+    productsList = productHandler->searchProductByKey(keyword);
+    printPage();
+  }
   return true;
 }
 
@@ -79,6 +87,10 @@ void productsView::printPage() {
     headerView->printHeader();
     cout << "<body>" << endl;
         cout << "<h1 style='text-align:center; color:navy;'>Productos</h1>" << endl;
+        cout << "<form action='buyPage' method= 'POST' class='navbar-form pull-left'>" <<endl;
+        cout << "<input type='text' class='span2' name='keyword'>" <<endl;
+        cout << "<button type='submit' class='btn'>Buscar</button>" <<endl;
+        cout << "</form>" <<endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;
         cout << "<div class='d-flex justify-content-center row'>" << endl;
             cout << "<div class='col-md-10'>" << endl;

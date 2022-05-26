@@ -91,7 +91,6 @@ BEGIN
 Select count(usuario) from usuario WHERE usuario.email=email and usuario.contrasena=password;
 END;//
 
-xz
 
 DELIMITER //
 CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
@@ -234,4 +233,22 @@ BEGIN
     RIGHT JOIN carrito on producto.id = carrito.idproducto
     WHERE carrito.usuario = user;
 END;
+//
+
+
+DELIMITER //
+CREATE PROCEDURE get_products_by_keyword( IN keyword varchar (255))
+BEGIN
+	SELECT * FROM producto 
+    WHERE producto.nombre LIKE CONCAT('%',keyword,'%')
+    UNION
+    SELECT * FROM producto 
+    WHERE producto.dueno LIKE CONCAT('%',keyword,'%')
+    UNION
+    SELECT * FROM producto 
+    WHERE producto.valor LIKE CONCAT('%',keyword,'%')
+    UNION
+    SELECT * FROM producto 
+    WHERE producto.descripcion LIKE CONCAT('%',keyword,'%');
+END
 //

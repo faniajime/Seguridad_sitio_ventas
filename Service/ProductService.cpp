@@ -151,3 +151,50 @@ bool ProductService::deleteProduct(int id)
   }
   return true;
 }
+
+list<productModel> ProductService::searchProductByKey(string keyword){
+
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  productModel* product;
+  string query = "CALL get_products_by_keyword(" + keyword +")";;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_store_result(conn);
+
+    //************
+    int i = (int) mysql_num_rows(res);//cantidad de filas
+    int j = (int) mysql_num_fields(res);//cantidad de columnas   
+
+    MYSQL_FIELD     *columna;
+    int l,k;
+    //unsigned long   *lon;
+    string name,description,cost,owner, id;
+
+    // Información sobre columnas usando mysql_fetch_fields:
+      //cout << endl << "Informacion sobre columnas:" << endl;
+      columna = mysql_fetch_fields(res);
+      /*
+      for(l = 0; l < j; l++) {
+         cout << "Nombre: " << columna[l].name << endl;
+      }
+      cout << endl;
+    */
+      // Leer registro a registro:
+      for(l = 0; l < i; l++) {
+         row = mysql_fetch_row(res);       
+        name = row[1];
+        description = row[2];
+        cost = row[3];
+        owner = row[4];
+        product = new productModel(name,description,owner,stoi(cost), stoi(id));
+        productsList.push_back(*product);
+      }
+      
+    //***************************
+  }else{
+    error();
+    
+  }
+  mysql_free_result(res);
+  return productsList;
+}
