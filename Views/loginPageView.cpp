@@ -11,6 +11,8 @@ loginPageView::loginPageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
+        sessionService = new SessionService();
+        sessionService2 = new SessionService();
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -38,6 +40,20 @@ loginPageView::loginPageView() {
   }
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
+        if (sessionService->sessionExistsAsCookie()){
+           string value =sessionService->getCookieValue();
+      if (sessionService->sessionExists(value)) {
+             bool isDeleted = sessionService2->deleteSession(value);
+              sessionService->removeCookie();
+                   cout << "Content-type: text/html" << endl << endl;
+                   cout << "deleted: "<<value<<"asdf"<<isDeleted<<endl;
+        }
+       
+     }
+   //   if (sessionService->getCookieValue()!=""){
+  //            sessionService->removeCookie();
+ //     }
+
       getResponse();
     }
 

@@ -3,6 +3,7 @@
 #include "../Service/ProductService.h"
 #include "../Models/productModel.h"
 #include "ProductService.h"
+#include "SessionService.h"
 #include <iostream>
 
 
@@ -23,6 +24,17 @@ int main(){
         cout<<"Se elimino el producto";
     }
     */
+   cout << "hola" <<endl;
+   SessionService* sesssion = new SessionService();
+    string email = "fabij._@gmail.com";
+    string ses = "11acf0fd603ea463895f6103eeded5c0e7ffe7aaa36078d523a1ee1eaa2fe894";
+    sesssion->createSession(email);
 
- 
+    SessionService* sess = new SessionService();
+    string user = sess->getUserFromToken(ses);
+
+    cout << user<<endl;
 }
+
+
+

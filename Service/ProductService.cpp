@@ -1,5 +1,4 @@
 #include "ProductService.h"
-#include "Database.cpp"
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -27,11 +26,11 @@ ProductService::~ProductService(){}
 bool ProductService::createProduct(string name, string description, string owner, int cost)
 {
   if (conn==NULL){
-      error();
+  //    error();
   }
-  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + to_string(cost) + "','" +  owner+ "')"  ;
+  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + owner+ "','" +to_string(cost)+ "')"  ;
   if (mysql_query(conn,query.c_str())){
-      error();
+    //  error();
   }
   return true;
 }

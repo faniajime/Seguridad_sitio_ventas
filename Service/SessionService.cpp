@@ -2,7 +2,16 @@
 #include <iostream>
 #include <string>
 using namespace std;
-SessionService::SessionService(){}
+
+SessionService::SessionService(){
+    Database* db = new Database();
+    if(db->connectToDatabase()){
+        conn = db->getConnection();
+    }
+    accessToken = getenv("HTTP_COOKIE");
+        encryptor = new Encryptor();
+}
+
 SessionService::~SessionService(){}
 
 bool SessionService::setCookies(string cookieString){
@@ -17,7 +26,6 @@ bool SessionService::setCookies(string cookieString){
 }
 
 string SessionService::getCookieKey(){
-    char* accessToken = getenv("HTTP_COOKIE");
     string cookies = accessToken;
     string::size_type pos = cookies.find('=');
     if (pos != string::npos)
@@ -27,19 +35,91 @@ string SessionService::getCookieKey(){
         return cookies;
     }
 }
+
 string SessionService::getCookieValue(){
-    char* accessToken = getenv("HTTP_COOKIE");
     string cookies = accessToken;
     return cookies.substr(cookies.find("=")+1);
 }
 
-bool SessionService::validateCookie() {
 
-}
 
 void SessionService::removeCookie() {
-   cout<< "Set-Cookie:UserID=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT" << endl;
+   cout<< "Set-Cookie:UserID=deleted; path=/cgi-bin; expires=Thu, 01 Jan 1970 00:00:00 GMT"<< endl;
 
 }
 
+string SessionService::createToken(string email){
+    
 
+    string token = encryptor->encrypt(email + "pelos");;
+
+
+    return token;
+}
+string SessionService::createSession(string email){
+    
+
+    if (conn==NULL){
+        return NULL;
+    }
+    string token = encryptor->encryptWithTime(email);
+    string query = "CALL crear_sesion( '" + email + "','" + token  + "','" + to_string(true) + "')";
+
+    if (mysql_query(conn,query.c_str())){
+      return NULL;
+    }
+    return token;
+}
+    
+bool SessionService::deleteSession(string token){
+    if (conn==NULL){
+        return false;
+    }
+    string query = "CALL borrar_sesion( '"+ token +"')"  ;
+    if (mysql_query(conn,query.c_str())){
+      return false;
+    }
+    return true;
+}
+bool SessionService::sessionExistsAsCookie(){
+    if (accessToken != NULL) {
+        return true;
+    } else {
+        return false;
+    }
+}
+bool SessionService::sessionExists(string token){
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    char* response = 0;
+    bool exists = false;
+    string query = "CALL get_sesion( '" + token + "')"  ;
+    if(!mysql_query(conn,query.c_str())){
+      res = mysql_use_result(conn);
+      if((row=mysql_fetch_row(res))!=NULL){
+        response = row[0];
+      }
+      if(response[0] >= '1'){
+        exists = true;
+      }
+    }
+    mysql_free_result(res);
+    return exists;
+}
+
+string SessionService::getUserFromToken(string token){
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    string response;
+    bool exists = false;
+    string user;
+    string query = "CALL get_username_from_session( '" + token + "')"  ;
+    if(!mysql_query(conn,query.c_str())){
+      res = mysql_use_result(conn);
+      if((row=mysql_fetch_row(res))!=NULL){
+        response = row[0];
+      }
+    }
+    mysql_free_result(res);
+    return response;
+}

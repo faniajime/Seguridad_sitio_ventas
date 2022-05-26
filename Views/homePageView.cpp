@@ -12,12 +12,13 @@ homePageView::homePageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
+  sessionService = new SessionService();
+  sessionService2 = new SessionService();
 
 
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
   char* contentLength = getenv("CONTENT_LENGTH");
-  char* requestAddress = getenv("REMOTE_ADDR");
   int queryLength = 0;
   int accessTokenLength = 0;
 
@@ -55,19 +56,28 @@ bool homePageView::getResponse() {
 }
 
 bool homePageView::postResponse() {
-  char * userEmail = parserHandler-> GetArg("userEmail");
+  char * userEmail = parserHandler->GetArg("userEmail");
   char * userPassword = parserHandler->GetArg("userPassword");
   string email = userEmail;
   string password = userPassword;
+  string token;
   if (userEmail != NULL) {
     if (userPassword != NULL) {
       bool passwordExists = userHandler->passwordCorrect(email, password);
       if(passwordExists) {
-        sessionService = new SessionService();
-      bool cookiesSet = sessionService->setCookies(email);
+      if(!sessionService->sessionExistsAsCookie()) {
+        string mockToken =sessionService->createToken(email);
+        if (!sessionService->sessionExists(mockToken)) {
+           string token = sessionService2->createSession(email);
+          sessionService->setCookies(token);
+        } else {
+          sessionService->setCookies(mockToken);
+        }
+               
+
+      }
+
       printPage();
-
-
       } else {
         cout << "Content-type: text/html\n\n"; 
         cout << "it's not working!" << endl;
@@ -79,7 +89,7 @@ bool homePageView::postResponse() {
     }
   } else {
     //email error
-  }
+ }
 
   return true;
 }
@@ -92,9 +102,8 @@ homePageView::~homePageView() {
 
 void homePageView::printPage() 
 {
-       sessionService = new SessionService();
-    string cookieKey = sessionService->getCookieKey();
-    string cookieValue = sessionService->getCookieValue();
+
+
      cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
     cout << "<html lang = 'en'" <<endl;
@@ -105,7 +114,13 @@ void homePageView::printPage()
     headerMenuView->printHeader();
     cout << "<body>" << endl;
     cout<< "<h2> testing that it works</h2>" << endl; 
-    cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+        if (sessionService->getCookieKey() == "UserID") {
+    string cookieKey = sessionService->getCookieKey();
+     string cookieValue = sessionService->getCookieValue();
+                 cout << "<h2> printing cookie value:"<< cookieKey <<" and cookie key:"<<cookieValue<<"</h2>"<<endl;
+   }
+
+
     cout << "</body>" << endl;
 
 }
