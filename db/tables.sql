@@ -14,7 +14,7 @@ CREATE TABLE preguntas(
 	id INT NOT NULL AUTO_INCREMENT, 
 	email varchar(255),
 	pregunta varchar(255) NOT NULL,
-	PRIMARY KEY (id),
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE respuestas(
@@ -33,7 +33,7 @@ CREATE TABLE producto(
 	id INT NOT NULL AUTO_INCREMENT ,
 	nombre varchar(255) NOT NULL,
 	descripcion varchar(255) NOT NULL,
-	valor INT NOT NULL, 
+	valor varchar(255) NOT NULL, 
 	dueno VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (dueno) references usuario (usuario)

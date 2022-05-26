@@ -7,10 +7,52 @@ using namespace std;
 
 
 productsView::productsView() {
-
+  parserHandler = new ParserHandler();
   productHandler = new ProductService();
-    printPage();
+  headerView = new HeaderMenuView();
+    char* requestMethod = getenv("REQUEST_METHOD");
+  char* queryString = getenv("QUERY_STRING");
+  char* contentLength = getenv("CONTENT_LENGTH");
+  int queryLength = 0;
+  int accessTokenLength = 0;
 
+  if (contentLength != NULL) {
+    queryLength = atoi(contentLength);
+    queryString = (char*)malloc(queryLength);
+    if(queryString != NULL) {
+      for (int pos = 0; pos < queryLength; pos++) {
+        queryString[pos] = fgetc(stdin);
+      }
+    }
+  }
+  
+  //parseQuery(queryString,queryLength,parserHandler);
+
+//  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
+  if (queryString != NULL && contentLength != NULL) {
+    parserHandler->parseQuery(queryLength, queryString);
+  }
+  if (requestMethod != NULL) {
+    if (strcmp(requestMethod,"GET")== 0) {
+      getResponse();
+    }
+
+    if (strcmp(requestMethod,"POST") ==0) {
+      postResponse();
+    }
+
+  }
+
+
+}
+bool productsView::getResponse() {
+  printPage();
+  return true;
+}
+
+bool productsView::postResponse() {
+     printPage();
+  return true;
 }
 
 productsView::~productsView() {
@@ -34,6 +76,7 @@ void productsView::printPage() {
         cout << "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'/>" << endl;
         cout << "<title>Productos</title>" << endl;
     cout << "</head>" << endl;
+    headerView->printHeader();
     cout << "<body>" << endl;
         cout << "<h1 style='text-align:center; color:navy;'>Productos</h1>" << endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;

@@ -16,6 +16,7 @@ class homePageView {
         bool postResponse();
         void printPage();
     private:
+        int refreshCount;
         ParserHandler * parserHandler;
         UserService * userHandler;
         HeaderMenuView * headerMenuView;
