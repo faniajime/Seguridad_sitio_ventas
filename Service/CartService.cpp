@@ -26,9 +26,9 @@ bool CartService::addtoCart(string user, string productID)
   string query = "CALL add_to_cart( '" + user+ "','" + productID  + "')"  ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 list<productModel> CartService::getCart(string usuario)
@@ -77,9 +77,9 @@ bool CartService::buyCart(string user)
   string query = "CALL buy_cart( '" + user+  "')"  ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 bool CartService::removeProduct(string usuario, string productID)
@@ -91,9 +91,9 @@ bool CartService::removeProduct(string usuario, string productID)
   string query = "CALL remove_from_cart( '" + usuario+ "','" + productID  + "')" ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 bool CartService::deleteCart(string usuario)
@@ -105,9 +105,9 @@ bool CartService::deleteCart(string usuario)
   string query = "CALL delete_cart( '" + usuario+ "')" ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
-    return false;
+    return true;
   }
-  return true;
+  return false;
 }
 
 int CartService::getTotal(string usuario)
@@ -115,7 +115,6 @@ int CartService::getTotal(string usuario)
     MYSQL_ROW row;
     MYSQL_RES* res;
     string response;
-    bool exists = false;
     string user;
     string query = "CALL get_total( '" + usuario + "')"  ;
     if(!mysql_query(conn,query.c_str())){
