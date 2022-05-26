@@ -94,13 +94,13 @@ END;//
 xz
 
 DELIMITER //
-CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
+CREATE PROCEDURE crear_producto(IN nombre varchar(255), IN descripcion varchar (255), IN valor varchar(255), IN dueno varchar(255))
 BEGIN
     INSERT INTO producto (nombre,descripcion,valor,dueno) VALUES (nombre,descripcion,valor,dueno);
 END; //
 
 DELIMITER //
-CREATE PROCEDURE actualizar_producto(IN id int(11),IN nombre varchar(255), IN descripcion varchar (255), IN valor int(11), IN dueno varchar(255))
+CREATE PROCEDURE actualizar_producto(IN id int(11),IN nombre varchar(255), IN descripcion varchar (255), IN valor varchar(255), IN dueno varchar(255))
 BEGIN
 UPDATE producto 
     SET                                                             

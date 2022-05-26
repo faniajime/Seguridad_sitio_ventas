@@ -3,6 +3,7 @@
 #include "../Service/ParserHandler.h"
 #include "../Service/SessionService.h"
 #include "../Service/ProductService.h" 
+#include "../Views/HeaderMenuView.h"
 
 using namespace std;
 
@@ -12,14 +13,16 @@ class addProductView{
 
 	addProductView();
 	~addProductView();
-        bool getResponse();
-        bool postResponse();
+    bool getResponse();
+    bool postResponse();
 	void printPage();
 
 	private:
 	ParserHandler * parserHandler;
-        SessionService * sessionHandler;
-        ProductService * productHandler;
+    SessionService * sessionHandler;
+    ProductService * productHandler;
+	HeaderMenuView * headerMenuView;
+	SessionService * sessionHandler2;
 
 };
 #endif

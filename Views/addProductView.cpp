@@ -14,12 +14,11 @@ addProductView::addProductView(){
   parserHandler = new ParserHandler();
   sessionHandler = new SessionService();
   productHandler = new ProductService();
-
+  sessionHandler2 = new SessionService();
   
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
   char* contentLength = getenv("CONTENT_LENGTH");
-  char* requestAddress = getenv("REMOTE_ADDR");
   int queryLength = 0;
   int accessTokenLength = 0;
 
@@ -66,12 +65,14 @@ bool addProductView::postResponse() {
   //int price = stoi((string) parserHandler->GetArg("price"));
   string description = parserHandler->GetArg("description");
  // string owner = sessionService.getCookieValue("email"); //Conseguir el email de la sesion
-    string owner = "admin";
+  string token = sessionHandler->getCookieValue();
+  string owner = sessionHandler->getUserFromToken(token);
   //Se debe crear validacion de los datos para verificar que todo esta correcto o no vacio.
   productHandler->createProduct(name, description, owner, price); 
-
-  cout << "Content-type: text/html\n\n"; 
+  printPage(); 
   cout <<" producto ingresado!" << endl;
+  cout << owner<< endl;
+  cout << token<< endl;
 
 
 

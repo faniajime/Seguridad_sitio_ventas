@@ -36,7 +36,7 @@ CREATE TABLE producto(
 	id INT NOT NULL AUTO_INCREMENT ,
 	nombre varchar(255) NOT NULL,
 	descripcion varchar(255) NOT NULL,
-	valor INT NOT NULL, 
+	valor varchar(255) NOT NULL, 
 	dueno VARCHAR(255) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (dueno) references usuario (usuario)
@@ -66,10 +66,8 @@ CREATE TABLE carrito(
 
 
 CREATE TABLE sesion(
-	id INT NOT NULL AUTO_INCREMENT,
 	email VARCHAR(255) NOT NULL,
-	token_sesion VARCHAR(255) NOT NULL,
+	token_sesion VARCHAR(255) NOT NULL PRIMARY KEY,
 	activo VARCHAR(5) NOT NULL,
-	fecha DATETIME NOT NULL, 
-	PRIMARY KEY(id)
+	fecha DATETIME NOT NULL
 );
