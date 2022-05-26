@@ -35,9 +35,9 @@ END;//
 
 
 DELIMITER //
-CREATE PROCEDURE crear_pregunta( IN usuario varchar (255), IN pregunta varchar (255))
+CREATE PROCEDURE crear_pregunta( IN email varchar (255), IN pregunta varchar (255))
 BEGIN
-INSERT INTO preguntas (usuario,pregunta) VALUES (usuario, pregunta);
+INSERT INTO preguntas (email,pregunta) VALUES (email, pregunta);
 END;//
 
 DELIMITER //
@@ -176,5 +176,14 @@ CREATE PROCEDURE get_sesion( IN token_sesion varchar (255))
 BEGIN
 	SELECT count(token_sesion) FROM sesion
     where token_sesion=token_sesion;
+END;
+//
+
+DELIMITER //
+CREATE PROCEDURE get_username_from_session( IN token_sesion varchar (255))
+BEGIN
+	SELECT usuario FROM usuario
+    JOIN sesion ON sesion.email = usuario.email
+    where sesion.token_sesion = token_sesion;
 END;
 //

@@ -21,6 +21,7 @@ class SessionService{
     bool sessionExists(string token);
     string createToken(string email);
     bool sessionExistsAsCookie();
+    string getUserFromToken(string token);
     MYSQL *conn;
     char * accessToken;
     Encryptor* encryptor;

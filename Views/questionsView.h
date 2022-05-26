@@ -1,6 +1,7 @@
 #ifndef QUESTIONSVIEW_H
 #define QUESTIONSVIEW_H
 #include "../Service/ParserHandler.h"
+#include "HeaderMenuView.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ class questionsView {
     
     private:
         ParserHandler* parserHandler;
+        HeaderMenuView* headerMenuView;
 
 };
 #endif
