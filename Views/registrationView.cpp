@@ -69,7 +69,6 @@ bool registrationView::postResponse()
   if (userEmail != NULL && userPassword != NULL && userId != NULL) 
   {
     bool emailExists = userHandler->checkUserExistByEmail(email);
-    
     bool userExists = userHandler2->checkUserExistByUsername(user);
     if(!emailExists && !userExists)
     {
@@ -105,6 +104,9 @@ void registrationView::printPage()
     cout << "<body>" << endl;
     cout<< "<h2> Welcome!</h2>" << endl;
     cout<< "<h5> You have been registered succesfully</h5>" << endl; 
+          cout << "<a href='login'>" <<endl; 
+      cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Go to Log In page</button>" << endl;
+      cout << "</a>"<<endl;
     cout << "</body>" << endl;
 
 }

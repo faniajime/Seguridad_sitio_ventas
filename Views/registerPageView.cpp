@@ -9,6 +9,7 @@ using namespace std;
 
 
 registerPageView::registerPageView(){
+  headerView = new HeaderMenuView();
 }
 registerPageView::~registerPageView(){
 }
@@ -22,6 +23,7 @@ cout << "Content-type: text/html" << endl << endl;
     cout<<"<meta charset='utf-8'>"<<endl;
     cout << "<link rel='stylesheet' href='style.css'>" << endl;
     cout << "</head>" << endl;
+    headerView->printHeader();
    cout << "<section class='vh-100 gradient-custom'>" << endl;
   cout << "<div class='container py-5 h-100'>" << endl;
     cout << "<div class='row d-flex justify-content-center align-items-center h-100'>" << endl;
@@ -30,7 +32,7 @@ cout << "Content-type: text/html" << endl << endl;
          cout <<  "<div class='card-body p-5 text-center'>" << endl;
            cout << "<h2>Register</h2>";
            cout<<" <p class='hint-text'>Create your account:</p>";
-           cout<< "<form action='registration' method= 'POST'>"<<endl;
+           cout<< "<form action='postRegistration' method= 'POST'>"<<endl;
             cout <<"<div class='form-group'>";
             cout<<"<input type='text' class='form-control' name='name' placeholder='Name' required='required'>";
             cout<<"</div>";

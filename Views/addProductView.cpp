@@ -14,6 +14,7 @@ addProductView::addProductView(){
   parserHandler = new ParserHandler();
   sessionHandler = new SessionService();
   productHandler = new ProductService();
+  headerMenuView = new HeaderMenuView();
   sessionHandler2 = new SessionService();
   
   char* requestMethod = getenv("REQUEST_METHOD");
@@ -59,15 +60,11 @@ bool addProductView::getResponse() {
 
 bool addProductView::postResponse() {
   string name = parserHandler-> GetArg("name");
-  //Convertir el precio de string a int
   string priceText = parserHandler->GetArg("price");
   int price = stoi(priceText);
-  //int price = stoi((string) parserHandler->GetArg("price"));
   string description = parserHandler->GetArg("description");
- // string owner = sessionService.getCookieValue("email"); //Conseguir el email de la sesion
   string token = sessionHandler->getCookieValue();
   string owner = sessionHandler->getUserFromToken(token);
-  //Se debe crear validacion de los datos para verificar que todo esta correcto o no vacio.
   productHandler->createProduct(name, description, owner, price); 
   printPage(); 
   cout <<" producto ingresado!" << endl;
@@ -89,6 +86,7 @@ cout << "Content-type: text/html" << endl << endl;
     cout<<"<meta charset='utf-8'>"<<endl;
     cout << "<link rel='stylesheet' href='style.css'>" << endl;
     cout << "</head>" << endl;
+    headerMenuView->printHeader();
    cout << "<section class='vh-100 gradient-custom'>" << endl;
   cout << "<div class='container py-5 h-100'>" << endl;
     cout << "<div class='row d-flex justify-content-center align-items-center h-100'>" << endl;

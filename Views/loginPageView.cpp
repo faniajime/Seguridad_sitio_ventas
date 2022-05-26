@@ -120,7 +120,7 @@ void loginPageView::printPage() {
               cout<<"</form>"<<endl;
             cout << "</div>" << endl;
             cout << "<div>" << endl;
-              cout << "<p class='mb-0'>Don't have an account? <a href='register' class='text-white-50 fw-bold'>Sign Up</a>" << endl;
+              cout << "<p class='mb-0'>Don't have an account? <a href='registration' class='text-white-50 fw-bold'>Sign Up</a>" << endl;
               cout<< "</p>" << endl;
             cout << "</div>" << endl;
           cout << "</div>" << endl;

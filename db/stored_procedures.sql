@@ -67,7 +67,7 @@ END;//
 DELIMITER //
 CREATE PROCEDURE get_user_by_username( IN username varchar (255))
 BEGIN
-SELECT * FROM usuario WHERE username = username;
+SELECT * FROM usuario WHERE usuario = username;
 END;//
 
 DELIMITER //
@@ -81,7 +81,7 @@ END;//
 DELIMITER //
 CREATE PROCEDURE email_exists( IN email varchar (255))
 BEGIN
-Select count(email) from usuario WHERE email=email;
+Select count(email) from usuario WHERE usuario.email=email;
 END;//
 
 
