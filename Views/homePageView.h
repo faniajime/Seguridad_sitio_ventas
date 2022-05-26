@@ -5,6 +5,7 @@
 #include "../Service/UserService.h"
 //#include "../Service/SessionService.h"
 #include "HeaderMenuView.h"
+#include "../Service/encryptionService.h"
 using namespace std;
 
 class homePageView {
@@ -20,5 +21,6 @@ class homePageView {
         HeaderMenuView * headerMenuView;
         SessionService * sessionService;
         SessionService * sessionService2;
+        Encryptor * encrypter;
 };
 #endif

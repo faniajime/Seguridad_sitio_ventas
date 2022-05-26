@@ -14,6 +14,7 @@ homePageView::homePageView() {
   headerMenuView = new HeaderMenuView();
   sessionService = new SessionService();
   sessionService2 = new SessionService();
+  encrypter = new Encryptor();
 
 
   char* requestMethod = getenv("REQUEST_METHOD");
@@ -59,7 +60,7 @@ bool homePageView::postResponse() {
   char * userEmail = parserHandler->GetArg("userEmail");
   char * userPassword = parserHandler->GetArg("userPassword");
   string email = userEmail;
-  string password = userPassword;
+  string password = encrypter->encrypt(userPassword);
   string token;
   if (userEmail != NULL) {
     if (userPassword != NULL) {

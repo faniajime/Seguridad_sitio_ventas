@@ -75,7 +75,7 @@ bool registrationView::postResponse()
     if(!emailExists && !userExists)
     {
         string encryptedPassword = encrypter->encrypt(userPassword);
-        if(userHandler3->createUser(userName,userId,userEmail,stoi(phoneNumber),userPassword,userDirection))
+        if(userHandler3->createUser(userName,userId,userEmail,stoi(phoneNumber),encryptedPassword,userDirection))
         {
             printPage();
         }else {
