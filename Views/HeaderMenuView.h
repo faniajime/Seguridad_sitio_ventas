@@ -7,6 +7,5 @@ class HeaderMenuView {
         ~HeaderMenuView();
         void printHeader();
     private:
-        SessionService * sessionService;
 };
 #endif

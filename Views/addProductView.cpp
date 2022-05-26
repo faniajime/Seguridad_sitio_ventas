@@ -59,19 +59,19 @@ bool addProductView::getResponse() {
 }
 
 bool addProductView::postResponse() {
-  string name = (string) parserHandler-> GetArg("name");
+  string name = parserHandler-> GetArg("name");
   //Convertir el precio de string a int
-  char* priceText = parserHandler->GetArg("price");
-  int price = atoi(priceText);
+  string priceText = parserHandler->GetArg("price");
+  int price = stoi(priceText);
   //int price = stoi((string) parserHandler->GetArg("price"));
   string description = parserHandler->GetArg("description");
  // string owner = sessionService.getCookieValue("email"); //Conseguir el email de la sesion
-    string owner = "test";
+    string owner = "admin";
   //Se debe crear validacion de los datos para verificar que todo esta correcto o no vacio.
   productHandler->createProduct(name, description, owner, price); 
 
   cout << "Content-type: text/html\n\n"; 
-  cout <<"<marquee> producto ingresado! </marquee>" << endl;
+  cout <<" producto ingresado!" << endl;
 
 
 
@@ -96,6 +96,7 @@ cout << "Content-type: text/html" << endl << endl;
          cout <<  "<div class='card-body p-5 text-center'>" << endl;
            cout << "<h2>Add Product</h2>";
            cout<<" <p class='hint-text'>Add a new product to sell</p>";
+           cout<< "<form action='sellPage' method= 'POST'>"<<endl;
             cout <<"<div class='form-group'>";
             cout<<"<input type='text' class='form-control' name='name' placeholder='Name' required='required'>";
             cout<<"</div>";
@@ -120,6 +121,5 @@ cout<< "</section>" << endl;
 int main()
 {
 	addProductView addProductView;
-        addProductView.printPage();
 return 0;
 }

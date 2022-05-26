@@ -12,7 +12,8 @@ homePageView::homePageView() {
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
-sessionService = new SessionService();
+  sessionService = new SessionService();
+  sessionService2 = new SessionService();
 
 
   char* requestMethod = getenv("REQUEST_METHOD");
@@ -59,14 +60,21 @@ bool homePageView::postResponse() {
   char * userPassword = parserHandler->GetArg("userPassword");
   string email = userEmail;
   string password = userPassword;
-    userHandler = new UserService();
+  string token;
   if (userEmail != NULL) {
     if (userPassword != NULL) {
-      
       bool passwordExists = userHandler->passwordCorrect(email, password);
       if(passwordExists) {
       if(!sessionService->sessionExistsAsCookie()) {
-      sessionService->setCookies(sessionService->createSession(email));
+        string mockToken =sessionService->createToken(email);
+        if (!sessionService->sessionExists(mockToken)) {
+           string token = sessionService2->createSession(email);
+          sessionService->setCookies(token);
+        } else {
+          sessionService->setCookies(mockToken);
+        }
+               
+
       }
 
       printPage();

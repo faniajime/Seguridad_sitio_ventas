@@ -9,6 +9,7 @@ using namespace std;
 productsView::productsView() {
 
   productHandler = new ProductService();
+    printPage();
 
 }
 
@@ -66,5 +67,5 @@ void productsView::printPage() {
 
 int main () {
   productsView productsView;
-  productsView.printPage();
+
 }

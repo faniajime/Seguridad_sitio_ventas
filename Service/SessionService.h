@@ -4,6 +4,7 @@
 #include <string>
 #include <mysql/mysql.h>
 #include "Database.h"
+#include "encryptionService.h"
 
 using namespace std;
 class SessionService{
@@ -18,9 +19,11 @@ class SessionService{
     string createSession(string email);
     bool deleteSession(string token);
     bool sessionExists(string token);
+    string createToken(string email);
     bool sessionExistsAsCookie();
     MYSQL *conn;
     char * accessToken;
+    Encryptor* encryptor;
     
 };
 #endif

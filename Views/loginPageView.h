@@ -21,6 +21,7 @@ class loginPageView {
         UserService * userHandler;
         HeaderMenuView * headerMenuView;
         SessionService * sessionService;
+        SessionService * sessionService2;
 
 
 };

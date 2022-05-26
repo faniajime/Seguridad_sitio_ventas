@@ -1,8 +1,6 @@
 #include "SessionService.h"
 #include <iostream>
 #include <string>
-#include "encryptionService.h"
-
 using namespace std;
 
 SessionService::SessionService(){
@@ -11,7 +9,7 @@ SessionService::SessionService(){
         conn = db->getConnection();
     }
     accessToken = getenv("HTTP_COOKIE");
-
+        encryptor = new Encryptor();
 }
 
 SessionService::~SessionService(){}
@@ -50,10 +48,17 @@ void SessionService::removeCookie() {
 
 }
 
+string SessionService::createToken(string email){
+    
 
+    string token = encryptor->encrypt(email + "pelos");;
+
+
+    return token;
+}
 string SessionService::createSession(string email){
     
-    Encryptor* encryptor = new Encryptor();
+
     if (conn==NULL){
         return NULL;
     }
@@ -70,7 +75,7 @@ bool SessionService::deleteSession(string token){
     if (conn==NULL){
         return false;
     }
-    string query = "CALL borrar_sesion( '" + token + "')"  ;
+    string query = "CALL borrar_sesion( '"+ token +"')"  ;
     if (mysql_query(conn,query.c_str())){
       return false;
     }

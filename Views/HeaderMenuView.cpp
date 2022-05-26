@@ -4,7 +4,6 @@
 using namespace std;
 
 HeaderMenuView::HeaderMenuView (){
-   sessionService = new SessionService();
 }
 HeaderMenuView::~HeaderMenuView () {
 

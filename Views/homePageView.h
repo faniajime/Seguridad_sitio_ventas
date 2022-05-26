@@ -19,7 +19,6 @@ class homePageView {
         UserService * userHandler;
         HeaderMenuView * headerMenuView;
         SessionService * sessionService;
-        SessionService * session;
-
+        SessionService * sessionService2;
 };
 #endif
