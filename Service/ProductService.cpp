@@ -110,7 +110,9 @@ list<productModel> ProductService::getProducts()
     */
       // Leer registro a registro:
       for(l = 0; l < i; l++) {
-         row = mysql_fetch_row(res);       
+         row = mysql_fetch_row(res); 
+
+         id= row[0];      
         name = row[1];
         description = row[2];
         cost = row[3];
