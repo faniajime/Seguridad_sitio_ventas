@@ -10,7 +10,9 @@ class Encryptor {
     ~Encryptor();
     string encrypt(string phrase);
     bool theSame(string phrase, string sha);
-   
+    string encryptWithTime(string phrase);
+   private:
+   string salt = "lapelos";
 };
 
 #endif

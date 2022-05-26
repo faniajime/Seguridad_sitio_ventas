@@ -24,20 +24,16 @@ int main(){
         cout<<"Se elimino el producto";
     }
     */
+   cout << "hola" <<endl;
    SessionService* sesssion = new SessionService();
-    string email = "fabij@gmail.com";
-    string ses = "3bd0e0b6c1892c739272276ea6bfddc8556f06c432bdbb189892d6e9b382f0f4";
+    string email = "fabij._@gmail.com";
+    string ses = "11acf0fd603ea463895f6103eeded5c0e7ffe7aaa36078d523a1ee1eaa2fe894";
     sesssion->createSession(email);
-    if(sesssion->sessionExists(ses)){
-        cout << "Sesssion exists" <<endl;
-    }
-    SessionService* sess = new SessionService();
-    sess->deleteSession(ses);
 
-    cout <<"here" <<endl;
-    if(!(sess->sessionExists(ses))){
-        cout << "Sesssion was deleted" <<endl;
-    }
+    SessionService* sess = new SessionService();
+    string user = sess->getUserFromToken(ses);
+
+    cout << user<<endl;
 }
 
 

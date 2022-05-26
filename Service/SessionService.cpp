@@ -62,8 +62,8 @@ string SessionService::createSession(string email){
     if (conn==NULL){
         return NULL;
     }
-    string token = encryptor->encrypt(email + "pelos");
-    string query = "CALL crear_sesion( '" +email+ "','" +token+ "','" + to_string(true)+"')";
+    string token = encryptor->encryptWithTime(email);
+    string query = "CALL crear_sesion( '" + email + "','" + token  + "','" + to_string(true) + "')";
 
     if (mysql_query(conn,query.c_str())){
       return NULL;
@@ -107,3 +107,19 @@ bool SessionService::sessionExists(string token){
     return exists;
 }
 
+string SessionService::getUserFromToken(string token){
+    MYSQL_ROW row;
+    MYSQL_RES* res;
+    string response;
+    bool exists = false;
+    string user;
+    string query = "CALL get_username_from_session( '" + token + "')"  ;
+    if(!mysql_query(conn,query.c_str())){
+      res = mysql_use_result(conn);
+      if((row=mysql_fetch_row(res))!=NULL){
+        response = row[0];
+      }
+    }
+    mysql_free_result(res);
+    return response;
+}

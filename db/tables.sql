@@ -12,7 +12,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE preguntas(
 	id INT NOT NULL AUTO_INCREMENT, 
-	usuario varchar(255),
+	email varchar(255),
 	pregunta varchar(255) NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (usuario) references usuario(usuario)
@@ -23,7 +23,7 @@ CREATE TABLE preguntas(
 CREATE TABLE respuestas(
 	preguntaid INT NOT NULL,
 	respuesta varchar(255) NOT NULL,
-	usuario varchar(255) NOT NULL,
+	email varchar(255) NOT NULL,
 	FOREIGN KEY (usuario) references usuario (usuario)
 		ON DELETE CASCADE ON UPDATE CASCADE,
 	FOREIGN KEY (preguntaid) references preguntas (id)
