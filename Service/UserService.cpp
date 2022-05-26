@@ -28,6 +28,7 @@ bool UserService::createUser(string nombre, string usuario, string email, int te
         error();
     }
     string query = "CALL crear_usuario( '" + nombre + "','" + usuario  + "','" + email  + "','" +  to_string(telefono)  + "','" + contrasena  + "','" + direccion  + "')"  ;
+    
     if (mysql_query(conn,query.c_str())){
       error();
       return false;
@@ -35,7 +36,7 @@ bool UserService::createUser(string nombre, string usuario, string email, int te
     return true;
 }
 
-bool UserService::checkUserExistByUsername(string username){
+bool UserService::checkUserExistByUsername(string username){  
   MYSQL_ROW row;
   MYSQL_RES* res;
   char* response = 0;
@@ -50,18 +51,23 @@ bool UserService::checkUserExistByUsername(string username){
       exists = true;
     }
   }else{
+    cout << "Content-type: text/html\n\n"; 
+    cout << "en by user error" << endl;
     error();
     
   }
   mysql_free_result(res);
+  
   return exists;
 }
 bool UserService::checkUserExistByEmail(string email){
+    
     MYSQL_ROW row;
     MYSQL_RES* res;
     char* response = 0;
     bool exists = false;
     string query = "CALL email_exists( '" + email + "')"  ;
+   
     if(!mysql_query(conn,query.c_str())){
       res = mysql_use_result(conn);
       if((row=mysql_fetch_row(res))!=NULL){
@@ -72,9 +78,9 @@ bool UserService::checkUserExistByEmail(string email){
       }
     }else{
       error();
-      
     }
     mysql_free_result(res);
+    
     return exists;
 }
 
