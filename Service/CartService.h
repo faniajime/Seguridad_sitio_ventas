@@ -16,6 +16,7 @@ class CartService
     CartService ();
     ~CartService();
     MYSQL *conn;
+    bool isInCart(string productID);
     bool addtoCart(string usuario, string productID); // agrega producto al carrito
     list<productModel> getCart(string usuario); // retorna lista de productos que se agregaron al carrito
     bool buyCart(string usuario); // borra todos los productos del carrito + tabla de productos
