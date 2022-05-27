@@ -31,6 +31,26 @@ bool CartService::addtoCart(string user, string productID)
   return false;
 }
 
+bool CartService::isInCart(string productID)
+{
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  int response ;
+  bool exists = false;
+  string query = "CALL is_in_cart( '" + productID + "')"  ;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_use_result(conn);
+    if((row=mysql_fetch_row(res))!=NULL){
+      response = stoi(row[0]);
+    }
+    if(response >= 1){
+      exists = true;
+    }
+  }
+  mysql_free_result(res);
+  return exists;
+}
+
 list<productModel> CartService::getCart(string usuario)
 {
   MYSQL_ROW row;
