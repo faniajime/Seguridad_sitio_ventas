@@ -59,9 +59,9 @@ cout << "Content-type: text/html" << endl << endl;
               cout<<"  <button type='submit' class= 'btn btn-success btn-lg btn-block'>Register Now</button>";
            cout<<" </div>";
               cout<<"</form>"<<endl;
-             cout<<"<div class='text-center'>Already have an account?";
-           cout<<" <a href='#'>Sign in</a>";
-        cout<<"</div>";
+             //cout<<"<div class='text-center'>Already have an account?";
+           //cout<<" <a href='#'>Sign in</a>";
+        //cout<<"</div>";
             cout << "</div>" << endl;
 
           cout << "</div>" << endl;

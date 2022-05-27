@@ -252,3 +252,11 @@ BEGIN
     WHERE producto.descripcion LIKE CONCAT('%',keyword,'%');
 END
 //
+
+DELIMITER //
+CREATE PROCEDURE is_in_cart( IN productID INT)
+BEGIN
+	SELECT count(productoid) FROM carrito
+    WHERE productoid = productID;
+END
+//

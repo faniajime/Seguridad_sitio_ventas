@@ -15,11 +15,11 @@ QuestionService::QuestionService(){
 
 QuestionService::~QuestionService(){}
 
-bool QuestionService::addQuestion(string pregunta, string email){
+bool QuestionService::addQuestion(string email, string question){
     if (conn==NULL){
         return false;
     }
-    string query = "CALL crear_pregunta( '" +  email + "','" +  pregunta + "')"  ;
+    string query = "CALL crear_pregunta( '" +  email + "','" + question + "')"  ;
     if (!mysql_query(conn,query.c_str())){
       return false;
     }
@@ -32,7 +32,7 @@ list<questionModel> QuestionService::getQuestions(){
   MYSQL_RES* res;
   questionModel* question;
   list<questionModel> questionList;
-  string query = "CALL get_preguntas( )" ;
+  string query = "CALL get_preguntas()" ;
   if(!mysql_query(conn,query.c_str())){
     res = mysql_store_result(conn);
     int i = (int) mysql_num_rows(res);//cantidad de filas

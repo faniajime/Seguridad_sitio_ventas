@@ -18,10 +18,10 @@ void HeaderMenuView::printHeader() {
   cout<< "<div class='collapse navbar-collapse' id='navbarSupportedContent'>" <<endl;
    cout<<  "<ul class='navbar-nav mr-auto'>" <<endl;
       cout<< "<li class='nav-item'>" <<endl;
-        cout<< "<a class='nav-link' href='buyPage'>Compra</a>" <<endl;
+        cout<< "<a class='nav-link' href='buyPage'>Buy</a>" <<endl;
       cout << "</li>" <<endl;
    cout<<   "<li class='nav-item'>" << endl;
-        cout << "<a class='nav-link' href='sellPage'>Venta</a>" << endl;
+        cout << "<a class='nav-link' href='sellPage'>Sell</a>" << endl;
      cout << "</li>" << endl;
       cout << "<li class='nav-item'>" <<endl;
         cout << "<a class='nav-link' href='QA'>Need help?</a>" << endl;
@@ -34,7 +34,7 @@ void HeaderMenuView::printHeader() {
       cout << "<a href='login'>" <<endl; 
       cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log Out/Log In</button>" << endl;
       cout << "</a>"<<endl;
-      cout << "<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Carrito</button>"<<endl;
+      cout << "<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Cart</button>"<<endl;
     cout << "</form>"<<endl;
   cout << "</div>"<<endl;
   cout << "</nav>" <<endl;

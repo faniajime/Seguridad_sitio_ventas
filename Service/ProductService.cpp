@@ -23,16 +23,17 @@ void ProductService::error(){
 
 ProductService::~ProductService(){}
 
-bool ProductService::createProduct(string name, string description, string owner, int cost)
+bool ProductService::createProduct(string name, string description, int cost, string owner)
 {
   if (conn==NULL){
   //    error();
   }
-  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + owner+ "','" +to_string(cost)+ "')"  ;
-  if (mysql_query(conn,query.c_str())){
+  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + to_string(cost)+ "','" +owner+ "')"  ;
+  if (!mysql_query(conn,query.c_str())){
+    return true;
     //  error();
   }
-  return true;
+  return false;
 }
 
 productModel ProductService::getProductById(int id)
@@ -136,7 +137,7 @@ bool ProductService::updateProduct(int id,string name, string description, strin
       error();
   }
   string query = "CALL actualizar_producto( '"+to_string(id)+"','" + name+ "','" + description  + "','" + to_string(cost) + "','" +  owner+ "')" ;
-  if (mysql_query(conn,query.c_str())){
+  if (!mysql_query(conn,query.c_str())){
       error();
   }
   return true;

@@ -115,13 +115,13 @@ void productsView::printPage() {
             if(isLoggedIn) {
            cout << "<h1 style='text-align:center; color:navy;'>Products currently in carrito:</h1><br/>" << endl;
            this->cartList = cartService2->getCart(username);
-                            cout<<"<div style ='text-align:center'>"<<endl;
+                            cout<<"<h5 style = 'text-align:center;'>"<<endl;
           for(const auto& cart : cartList){
 
                        cout << cart.name+", ";
           }
             cout << endl;
-            cout<<"</div>"<<endl;
+            cout<<"</h5>"<<endl;
             } 
           if (!isLoggedIn) {
           cout <<"<h3 style='text-align:center;'>You must start a new session in order to buy products. </h3>"<<endl;  

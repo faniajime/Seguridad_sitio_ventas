@@ -71,7 +71,7 @@ bool addProductView::postResponse() {
     if (sessionExists) {
       string token = sessionHandler->getCookieValue();
       string owner = sessionHandler2->getUserFromToken(token);
-      productHandler->createProduct(name, description, owner, price); 
+      productHandler->createProduct(name, description, price, owner); 
       printHtmlHeader();
       cout <<"<big>Your product: "<<name<<" is now being sold.</big>" << endl;
       printPage(); 
