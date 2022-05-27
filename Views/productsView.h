@@ -19,6 +19,7 @@ class productsView {
     
     private:
         ProductService * productHandler;
+        ProductService * productHandler2;
         productModel* product;
         ParserHandler * parserHandler;
         list<productModel> productsList;

@@ -12,10 +12,14 @@ using namespace std;
 productsView::productsView() {
   parserHandler = new ParserHandler();
   productHandler = new ProductService();
+  productHandler2 = new ProductService();
   headerView = new HeaderMenuView();
-    char* requestMethod = getenv("REQUEST_METHOD");
+   
+  char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
   char* contentLength = getenv("CONTENT_LENGTH");
+  char* requestAddress = getenv("REMOTE_ADDR");
+  char* accessToken = getenv("HTTP_COOKIE");
   int queryLength = 0;
   int accessTokenLength = 0;
 
@@ -37,6 +41,7 @@ productsView::productsView() {
   }
   if (requestMethod != NULL) {
     if (strcmp(requestMethod,"GET")== 0) {
+
       getResponse();
     }
 
@@ -49,6 +54,7 @@ productsView::productsView() {
 
 }
 bool productsView::getResponse() {
+  this->productsList = productHandler->getProducts();
   printPage();
   return true;
 }
@@ -57,7 +63,7 @@ bool productsView::postResponse() {
   char* keyword = parserHandler->GetArg("keyword");
   string key = keyword;
   if (keyword != NULL) {
-    productsList = productHandler->searchProductByKey(keyword);
+    this->productsList = productHandler2->searchProductByKey(keyword);
     printPage();
   }
   return true;
@@ -68,12 +74,6 @@ productsView::~productsView() {
 } 
 
 void productsView::printPage() {
-    this->productsList = productHandler->getProducts();
-    int listSize = this->productsList.size();
-    string name = "";
-    string description = "";
-    int cost = 0;
-    string owner = "";
     cout << "Content-type: text/html" << endl << endl;
     cout << "<!DOCTYPE html>" << endl;
     cout << "<html lang='en'>" << endl;
@@ -86,13 +86,13 @@ void productsView::printPage() {
     cout << "</head>" << endl;
     headerView->printHeader();
     cout << "<body>" << endl;
-        cout << "<h1 style='text-align:center; color:navy;'>Productos</h1>" << endl;
-        cout << "<div class='row' style='text-align:center'>" <<endl;
-        cout << "<form action='buyPage' method= 'POST' class='navbar-form pull-left'>" <<endl;
+        cout << "<h1 style='text-align:center; color:navy;'>Productos</h1><br/>" << endl;
+        cout << "<div class='row' style='text-align:center'><div class='col text-center'>" <<endl;
+        cout << "<form action='buyPage' method='POST' class='navbar-form pull-left'>" <<endl;
         cout << "<input type='text' class='span2' name='keyword'>" <<endl;
-        cout << "<button type='submit' class='btn btn-secondary btn-sm'>Buscar</button>" <<endl;
+        cout << "<button type='submit' class='btn btn-secondary btn-sm' >Buscar</button>" <<endl;
         cout << "</form>" <<endl;
-        cout << "</div>" <<endl;
+        cout << "</div></div>" <<endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;
         cout << "<div class='d-flex justify-content-center row'>" << endl;
             cout << "<div class='col-md-10'>" << endl;

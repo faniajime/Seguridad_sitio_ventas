@@ -154,12 +154,13 @@ bool ProductService::deleteProduct(int id)
   return true;
 }
 
-list<productModel> ProductService::searchProductByKey(string keyword){
 
+list<productModel> ProductService::searchProductByKey(string keyword)
+{
   MYSQL_ROW row;
   MYSQL_RES* res;
   productModel* product;
-  string query = "CALL get_products_by_keyword(" + keyword +")";;
+  string query = "CALL get_products_by_keyword( '" + keyword + "')" ;
   if(!mysql_query(conn,query.c_str())){
     res = mysql_store_result(conn);
 
@@ -183,7 +184,9 @@ list<productModel> ProductService::searchProductByKey(string keyword){
     */
       // Leer registro a registro:
       for(l = 0; l < i; l++) {
-         row = mysql_fetch_row(res);       
+         row = mysql_fetch_row(res); 
+
+         id= row[0];      
         name = row[1];
         description = row[2];
         cost = row[3];
