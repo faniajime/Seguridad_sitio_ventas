@@ -15,7 +15,7 @@ sellpage:
 loginpage:
 	sudo g++ Service/ParserHandler.cpp Service/UserService.cpp Service/Database.cpp Views/loginPageView.cpp  Views/HeaderMenuView.cpp Service/SessionService.cpp Service/encryptionService.cpp Service/SHA256.cpp -o /var/www/cgi-bin/login `mysql_config --cflags --libs` -lstdc++
 questions: 
-	sudo g++ Service/ParserHandler.cpp Models/questionModel.cpp Service/ParserHandler.h  Service/Database.cpp  Service/SessionService.cpp Service/UserService.cpp Service/QuestionsService.cpp Service/encryptionService.cpp Service/SHA256.cpp Views/questionsView.cpp Views/HeaderMenuView.cpp -o /var/www/cgi-bin/QA `mysql_config --cflags --libs` -lstdc++
+	sudo g++ Service/ParserHandler.cpp Service/ParserHandler.h  Service/Database.cpp Models/questionModel.cpp Views/HeaderMenuView.cpp Service/QuestionsService.cpp Service/SessionService.cpp Service/UserService.cpp Service/encryptionService.cpp Service/SHA256.cpp Views/questionsView.cpp -o /var/www/cgi-bin/questions `mysql_config --cflags --libs` -lstdc++
 
 
 postregistration:
