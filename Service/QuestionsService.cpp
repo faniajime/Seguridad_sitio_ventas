@@ -19,7 +19,7 @@ bool QuestionService::addQuestion(string pregunta, string email){
     if (conn==NULL){
         return false;
     }
-    string query = "CALL crear_pregunta( '" +  email + "','" +  pregunta + "')"  ;
+    string query = "CALL crear_pregunta( '" +  pregunta + "','" + email + "')"  ;
     if (!mysql_query(conn,query.c_str())){
       return false;
     }

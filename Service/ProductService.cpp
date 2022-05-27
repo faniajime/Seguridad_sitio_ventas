@@ -28,11 +28,12 @@ bool ProductService::createProduct(string name, string description, string owner
   if (conn==NULL){
   //    error();
   }
-  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + owner+ "','" +to_string(cost)+ "')"  ;
-  if (mysql_query(conn,query.c_str())){
+  string query = "CALL crear_producto( '" + name+ "','" + description  + "','" + to_string(cost)+ "','" +owner+ "')"  ;
+  if (!mysql_query(conn,query.c_str())){
+    return true;
     //  error();
   }
-  return true;
+  return false;
 }
 
 productModel ProductService::getProductById(int id)
