@@ -94,14 +94,14 @@ void productsView::printPage() {
     cout << "</head>" << endl;
     headerView->printHeader();
     cout << "<body>" << endl;
-        cout << "<h1 style='text-align:center; color:navy;'>Productos</h1><br/>" << endl;
+        cout << "<h1 style='text-align:center; color:navy;'>Available products</h1><br/>" << endl;
           if (!isLoggedIn) {
           cout <<"<h3 style='text-align:center;'>You must start a new session in order to buy products. </h3>"<<endl;  
         }
         cout << "<div class='row' style='text-align:center'><div class='col text-center'>" <<endl;
         cout << "<form action='buyPage' method='POST' class='navbar-form pull-left'>" <<endl;
         cout << "<input type='text' class='span2' name='keyword'>" <<endl;
-        cout << "<button type='submit' class='btn btn-secondary btn-sm' >Buscar</button>" <<endl;
+        cout << "<button type='submit' class='btn btn-secondary btn-sm' >Search</button>" <<endl;
         cout << "</form>" <<endl;
         cout << "</div></div>" <<endl;
         cout << "<div class='container mt-5 mb-5'>" << endl;
@@ -113,7 +113,7 @@ void productsView::printPage() {
                         cout << "<div class='col-md-6 mt-1'>" << endl;
                             cout << "<h5>"+prod.name+"</h5>" << endl;
                             cout << "<div class='d-flex flex-row'>" << endl;
-                                cout << "<span>Usuario: "+prod.owner+"</span>" << endl;
+                                cout << "<span>User: "+prod.owner+"</span>" << endl;
                             cout << "</div>" << endl;
                             cout << "<div class='mt-1 mb-1 spec-1'>" << endl;
                                 cout << "<span>"+prod.description+"</span><span class='dot'></span></div>" << endl;                        

@@ -84,27 +84,27 @@ void questionsView::printPage() {
     cout << "<html lang='es'>" << endl;
     cout << "<head>" << endl;
     cout << "<head> <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'rel='nofollow' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>" <<endl;
-    cout << "<title>Contactenos</title>" << endl;
+    cout << "<title>Contact us</title>" << endl;
      cout<<"<meta charset='utf-8'>"<<endl;
     cout << "</head>" << endl;
     headerMenuView->printHeader();
     cout << "<body>" << endl;
         cout << "<section><br/><br/>" << endl;
-        cout << "<h2 class='text-center mb-4 pb-2 text-primary fw-bold'>Contactenos</h2>" << endl;
-        cout << "<p class='text-center mb-5'>En esta página podrá encontrar preguntas, sugerencias y retroalimentación a la página, así como enviar sus propias sugerencias.</p>" << endl;
+        cout << "<h2 class='text-center mb-4 pb-2 text-primary fw-bold'>Contact us!</h2>" << endl;
+        cout << "<p class='text-center mb-5'>In this page you will find questions and feedback given to this site, also you can make your own suggestions.</p>" << endl;
               cout<< "<form action='questions' method='POST' style='padding-left:20vh;padding-right:20vh;'>"<<endl;
               cout << "<div class='form-outline form-white mb-4'>" << endl;
-              cout << "<label class='form-label' for='email'>Correo Electronico:</label>" << endl;
+              cout << "<label class='form-label' for='email'>Email:</label>" << endl;
               cout << "<input name='userEmail' type='email' id='email' class='form-control form-control-lg' />" << endl;
               cout << "</div>"<< endl;
               cout << "<div class='form-outline form-white mb-4'>" <<endl;
-              cout << "<label class='form-label' for='question'>Pregunta, sugerencia o queja:</label>" << endl;
+              cout << "<label class='form-label' for='question'>Question, suggestion or complaint:</label>" << endl;
               cout << "<textarea name='question' type='text' style='height:200px;font-size:14pt;' id='question' rows='3' class='form-control'></textarea>" << endl;
               cout << "</div>" << endl;
               cout << "<div class='row' style='text-align:center'><div class='col text-center'><button class='btn btn-primary btn-sm' style='align-content: center;' type='submit'>Enviar</button></div></div>" << endl;
               cout<<"</form>"<<endl;
 
-        cout << "<br/> <br/><h4 class='text-center mb-4 pb-2 text-primary fw-bold'>Sugerencias y preguntas anteriores</h4>" << endl;
+        cout << "<br/> <br/><h4 class='text-center mb-4 pb-2 text-primary fw-bold'>Suggestions and questions made for our users</h4>" << endl;
         cout << "<div class='row' style='padding: 5vh;'>" << endl;
         if(questions.size() >0){
           for(const auto& question : questions){
@@ -114,7 +114,7 @@ void questionsView::printPage() {
               cout << "</div>" <<endl;
           }
         }else{
-          cout << "<p><strong>No hay preguntas aun...</strong></p>" <<endl;
+          cout << "<p><strong>There isn't any feedback yet...</strong></p>" <<endl;
         }
     cout << "</div>" <<endl;
     cout << "</section>" <<endl;
