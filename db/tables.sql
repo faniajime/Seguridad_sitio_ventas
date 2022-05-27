@@ -47,3 +47,10 @@ CREATE TABLE sesion(
 	activo VARCHAR(5) NOT NULL,
 	fecha DATETIME NOT NULL
 );
+
+CREATE TABLE compras(
+	usuario VARCHAR(255) NOT NULL,
+	total INT NOT NULL,
+	fecha DATETIME NOT NULL,
+	FOREIGN KEY (usuario) references usuario (usuario),
+);

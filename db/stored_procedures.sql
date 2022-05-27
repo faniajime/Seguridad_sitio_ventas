@@ -30,7 +30,7 @@ END;//
 DELIMITER //
 CREATE PROCEDURE obtener_usuario( IN usuario varchar (255))
 BEGIN
-SELECT * FROM usuario WHERE usuario = usuario;
+SELECT * FROM usuario WHERE usuario.usuario = usuario;
 END;//
 
 
@@ -219,8 +219,9 @@ END;
 //
 
 DELIMITER //
-CREATE PROCEDURE buy_cart( IN user varchar (255))
+CREATE PROCEDURE buy_cart( IN user varchar (255), IN ammount INT)
 BEGIN
+    INSERT INTO compras (usuario, total, fecha) VALUES (user, ammount, CURRENT_TIMESTAMP());
 	DELETE FROM producto WHERE id IN (SELECT productoid FROM carrito where usuario=user);
     DELETE FROM carrito WHERE usuario=user;
 END;

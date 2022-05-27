@@ -26,3 +26,5 @@ registration:
 	
 buypage:
 	sudo g++ Service/ParserHandler.cpp Service/Database.cpp Views/productsView.cpp Views/HeaderMenuView.cpp Service/encryptionService.cpp Service/SHA256.cpp Service/SessionService.cpp Service/ProductService.cpp Models/productModel.cpp Service/CartService.cpp -o /var/www/cgi-bin/buyPage `mysql_config --cflags --libs` -lstdc++
+payPage:
+	sudo g++ Service/ParserHandler.cpp Service/Database.cpp Views/paymentView.cpp Views/HeaderMenuView.cpp Service/encryptionService.cpp Service/SHA256.cpp Service/SessionService.cpp Service/ProductService.cpp Models/productModel.cpp Service/CartService.cpp -o /var/www/cgi-bin/payPage `mysql_config --cflags --libs` -lstdc++

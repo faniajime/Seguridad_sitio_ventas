@@ -88,13 +88,13 @@ list<productModel> CartService::getCart(string usuario)
   return cart;
 }
 
-bool CartService::buyCart(string user)
+bool CartService::buyCart(string user, int total)
 {
   if (conn==NULL){
   //    error();
     return false;
   }
-  string query = "CALL buy_cart( '" + user+  "')"  ;
+  string query = "CALL buy_cart( '" + user+ "','"+ to_string(total)+"')"  ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
     return true;
@@ -135,7 +135,6 @@ int CartService::getTotal(string usuario)
     MYSQL_ROW row;
     MYSQL_RES* res;
     string response;
-    string user;
     string query = "CALL get_total( '" + usuario + "')"  ;
     if(!mysql_query(conn,query.c_str())){
       res = mysql_use_result(conn);
