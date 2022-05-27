@@ -3,7 +3,7 @@
 
 #include "../Service/ParserHandler.h"
 #include "../Service/UserService.h"
-//#include "../Service/SessionService.h"
+#include "../Service/SessionService.h"
 #include "HeaderMenuView.h"
 #include "../Service/encryptionService.h"
 using namespace std;

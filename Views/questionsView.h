@@ -4,7 +4,7 @@
 #include "../Service/QuestionsService.h"
 #include "HeaderMenuView.h"
 #include "../Models/questionModel.h"
-#include<list>
+#include <list>
 
 using namespace std;
 

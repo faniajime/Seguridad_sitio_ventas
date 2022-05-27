@@ -16,12 +16,12 @@ class CartService
     CartService ();
     ~CartService();
     MYSQL *conn;
-    bool addtoCart(string usuario, string productID);
-    list<productModel> getCart(string usuario);
-    bool buyCart(string usuario);
-    bool removeProduct(string usuario, string productID);
-    bool deleteCart(string usuario);
-    int getTotal(string usuario);
+    bool addtoCart(string usuario, string productID); // agrega producto al carrito
+    list<productModel> getCart(string usuario); // retorna lista de productos que se agregaron al carrito
+    bool buyCart(string usuario); // borra todos los productos del carrito + tabla de productos
+    bool removeProduct(string usuario, string productID); //quita un producto en especifico del carrito
+    bool deleteCart(string usuario); // borra todos los productos en el carrito
+    int getTotal(string usuario); // retorna total precio de productos en carrito
 
 
 };

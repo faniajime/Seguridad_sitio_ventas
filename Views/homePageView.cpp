@@ -80,8 +80,9 @@ bool homePageView::postResponse() {
           refreshCount++;
           cout << "Content-type: text/html\n\n"; 
           cout <<"<meta http-equiv='refresh' content='0'>" << endl;
+                printPage();
       }
-      printPage();
+
       } else {
         cout << "Content-type: text/html\n\n"; 
         cout << "oops, something went wrong!" << endl;

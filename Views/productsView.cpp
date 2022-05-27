@@ -14,6 +14,14 @@ productsView::productsView() {
   productHandler = new ProductService();
   productHandler2 = new ProductService();
   headerView = new HeaderMenuView();
+  sessionService = new SessionService();
+  string token= "";
+    if (sessionService->sessionExistsAsCookie()) {
+    token = sessionService->getCookieValue();
+    if(sessionService->sessionExists(token)) {
+      isLoggedIn = true;
+    }
+  }
    
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -87,6 +95,9 @@ void productsView::printPage() {
     headerView->printHeader();
     cout << "<body>" << endl;
         cout << "<h1 style='text-align:center; color:navy;'>Productos</h1><br/>" << endl;
+          if (!isLoggedIn) {
+          cout <<"<h3 style='text-align:center;'>You must start a new session in order to buy products. </h3>"<<endl;  
+        }
         cout << "<div class='row' style='text-align:center'><div class='col text-center'>" <<endl;
         cout << "<form action='buyPage' method='POST' class='navbar-form pull-left'>" <<endl;
         cout << "<input type='text' class='span2' name='keyword'>" <<endl;
@@ -111,7 +122,12 @@ void productsView::printPage() {
                             cout << "<div class='d-flex flex-row align-items-center'>" << endl;
                                 cout << "<h4 class='mr-1'>₡ "+to_string(prod.cost)+"</h4>" << endl;
                             cout << "</div>" << endl;
-                            cout << "<div class='d-flex flex-column mt-4'><button class='btn btn-primary btn-sm' type='button'>Agregar al carrito</button><button class='btn btn-outline-primary btn-sm mt-2' type='button'>Comprar</button></div>" << endl;
+                            if (isLoggedIn){
+                              cout << "<div class='d-flex flex-column mt-4'><button class='btn btn-primary btn-sm' type='button'>Add to carrito</button></div>" << endl;
+                            } else {
+                              cout << "<div class='d-flex flex-column mt-4'><button disabled class='btn btn-primary btn-sm' type='button'>Add to carrito</button></div>" << endl;
+                            }
+
                         cout << "</div>" << endl;
                     cout << "</div>" << endl;
                 }

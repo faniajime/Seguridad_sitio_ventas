@@ -7,7 +7,6 @@
 using namespace std;
 
 loginPageView::loginPageView() {
-
   parserHandler = new ParserHandler();
   userHandler = new UserService();
   headerMenuView = new HeaderMenuView();
@@ -45,8 +44,6 @@ loginPageView::loginPageView() {
       if (sessionService->sessionExists(value)) {
              bool isDeleted = sessionService2->deleteSession(value);
               sessionService->removeCookie();
-                   cout << "Content-type: text/html" << endl << endl;
-                   cout << "deleted: "<<value<<"asdf"<<isDeleted<<endl;
         }
        
      }

@@ -5,6 +5,7 @@
 #include "../Models/productModel.h"
 #include "../Service/ParserHandler.h"
 #include "HeaderMenuView.h"
+#include "../Service/SessionService.h"
 
 
 using namespace std;
@@ -24,5 +25,7 @@ class productsView {
         ParserHandler * parserHandler;
         list<productModel> productsList;
         HeaderMenuView * headerView;
+        SessionService * sessionService;
+        bool isLoggedIn = false;
 };  
 #endif
