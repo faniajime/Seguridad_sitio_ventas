@@ -9,6 +9,7 @@ using namespace std;
 paymentView::paymentView(){
   parserHandler = new ParserHandler();
   sessionHandler = new SessionService();
+  sessionHandler2 = new SessionService();
   productHandler = new ProductService();
   headerMenuView = new HeaderMenuView();
   cartService = new CartService();
@@ -69,23 +70,24 @@ bool paymentView::postResponse(){
   char* card = parserHandler->GetArg("card");
   char* date = parserHandler->GetArg("date");
   char* cvv = parserHandler->GetArg("cvc");
+  string total = parserHandler->GetArg("total");
 
   try{
-    if (name != NULL && card != NULL && date != NULL && cvv !=NULL) {
-      
-        string token = sessionHandler2->getCookieValue();
-        string user = sessionHandler2->getUserFromToken(token);
-        cartService2->buyCart(user, this->total);
-        printSuccess();
-        return true;
-    }else{
-      printError();
-      return false;
-    }
-    }catch(...){
+      if (name != NULL && card != NULL && date != NULL && cvv !=NULL) {
+        
+          string token = sessionHandler2->getCookieValue();
+          string user = sessionHandler2->getUserFromToken(token);
+          cartService2->buyCart(user, total);
+          printSuccess();
+          return true;
+      }else{
         printError();
-        return true;
-    }
+        return false;
+      }
+  }catch(...){
+      printError();
+      return true;
+  }
 
 }
 
@@ -285,6 +287,7 @@ void paymentView::printPage(){
         cout << "<div class='form-group'>" << endl;
         cout << "<label for='NAME' class='small text-muted mb-1'>CVC CODE</label>" << endl;
         cout << "<input type='text' class='form-control form-control-sm' name='cvc' id='NAME' aria-describedby='helpId' placeholder='183'>" << endl;
+        cout << "<input type='hidden' class='form-control form-control-sm' name='total' value='" << this->total << "'>" << endl;
         cout << "</div>" << endl;
         cout << "</div>" << endl;
         cout << "</div>" << endl;
@@ -305,23 +308,25 @@ void paymentView::printPage(){
       cout << "<hr class='my-2'>" << endl;
       cout << "</div>" << endl;
       cout << "<div class='card-body pt-0'>" << endl;
-
-      for(const auto &product: carrito){
-        cout << "<div class='row  justify-content-between'>" << endl;
-        cout << "<div class='col-auto col-md-7'>" << endl;
-        cout << "<div class='media flex-column flex-sm-row'>" << endl;
-        cout << "<div class='media-body  my-auto'>" << endl;
-        cout << "<div class='row '>" << endl;
-        cout << "<div class='col-auto'><p class='mb-0'><b>" << product.name << "</b></p><small class='text-muted'>" << product.description << "</small></div>" << endl;
-        cout << "</div>" << endl;
-        cout << "</div>" << endl;
-        cout << "</div>" << endl;
-        cout << "</div>" << endl;
-        cout << "<div class=' pl-0 flex-sm-col col-auto  my-auto '><p><b>₡" << product.cost << "</b></p></div>" << endl;
-        cout << "</div>" << endl;
-        cout << "<hr class='my-2'>" << endl;
+      if(!carrito.empty()){
+        for(const auto &product: carrito){
+          cout << "<div class='row  justify-content-between'>" << endl;
+          cout << "<div class='col-auto col-md-7'>" << endl;
+          cout << "<div class='media flex-column flex-sm-row'>" << endl;
+          cout << "<div class='media-body  my-auto'>" << endl;
+          cout << "<div class='row '>" << endl;
+          cout << "<div class='col-auto'><p class='mb-0'><b>" << product.name << "</b></p><small class='text-muted'>" << product.description << "</small></div>" << endl;
+          cout << "</div>" << endl;
+          cout << "</div>" << endl;
+          cout << "</div>" << endl;
+          cout << "</div>" << endl;
+          cout << "<div class=' pl-0 flex-sm-col col-auto  my-auto '><p><b>₡" << product.cost << "</b></p></div>" << endl;
+          cout << "</div>" << endl;
+          cout << "<hr class='my-2'>" << endl;
+        }
+      }else{
+        cout << "<b>Cart is emp</b>" <<endl;
       }
-
       cout << "<div class='row '>" << endl;
       cout << "<div class='col'>" << endl;
       cout << "<div class='row justify-content-between'>" << endl;

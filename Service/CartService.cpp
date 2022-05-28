@@ -88,13 +88,13 @@ list<productModel> CartService::getCart(string usuario)
   return cart;
 }
 
-bool CartService::buyCart(string user, int total)
+bool CartService::buyCart(string user, string total)
 {
   if (conn==NULL){
   //    error();
     return false;
   }
-  string query = "CALL buy_cart( '" + user+ "','"+ to_string(total)+"')"  ;
+  string query = "CALL buy_cart( '" + user+ "','"+ total +"')"  ;
   if (!mysql_query(conn,query.c_str())){
     //  error();
     return true;
