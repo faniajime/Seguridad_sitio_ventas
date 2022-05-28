@@ -222,9 +222,9 @@ DELIMITER //
 CREATE PROCEDURE buy_cart( IN user varchar (255), IN ammount INT)
 BEGIN
     INSERT INTO compras (usuario, total, fecha) VALUES (user, ammount, CURRENT_TIMESTAMP());
-	DELETE FROM producto WHERE id IN (SELECT productoid FROM carrito where usuario=user);
+	DELETE FROM producto WHERE id IN (SELECT idproducto FROM carrito where usuario=user);
     DELETE FROM carrito WHERE usuario=user;
-END;
+END
 //
 
 DELIMITER //
