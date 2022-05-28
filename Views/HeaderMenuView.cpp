@@ -34,7 +34,10 @@ void HeaderMenuView::printHeader() {
       cout << "<a href='login'>" <<endl; 
       cout << "<button class= 'btn btn-outline-success my-2 my-sm-0' type='button'>Log Out/Log In</button>" << endl;
       cout << "</a>"<<endl;
-      cout << "<button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Cart</button>"<<endl;
+      cout << "<a href='payPage'>" <<endl; 
+      cout << "<button class='btn btn-outline-success my-2 my-sm-0' type='button'>Cart</button>"<<endl;
+      cout << "</a>"<<endl;
+      
     cout << "</form>"<<endl;
   cout << "</div>"<<endl;
   cout << "</nav>" <<endl;

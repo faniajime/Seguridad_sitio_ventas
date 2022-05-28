@@ -48,7 +48,12 @@ paymentView::paymentView(){
   }
 }
 bool paymentView::getResponse(){
+  string token = sessionHandler->getCookieValue();
+  string user = sessionHandler->getUserFromToken(token);
+  this->total = cartService->getTotal(user);
+  
   printHead();
+  cout << total <<endl;
   printPage();
 }
 
@@ -57,11 +62,11 @@ bool paymentView::postResponse(){
   char* card = parserHandler->GetArg("card");
   char* date = parserHandler->GetArg("date");
   char* cvv = parserHandler->GetArg("cvv");
-  string token = sessionHandler->getCookieValue();
-  string user = sessionHandler->getUserFromToken(token);
+  //string token = sessionHandler->getCookieValue();
+  //string user = sessionHandler->getUserFromToken(token);
   
   if (name != NULL && card != NULL && date != NULL && cvv !=NULL) {
-    printHead();
+    //printHead();
     //int total = cartService->getTotal(user);
     //cout << total <<endl;
     cout << "cmamo" <<endl;
@@ -75,6 +80,7 @@ bool paymentView::postResponse(){
     return false;
   }
 }
+
 bool paymentView::checkCardValidity(string card){
     int sum = 0;
 

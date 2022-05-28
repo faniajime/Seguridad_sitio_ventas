@@ -27,9 +27,9 @@ class paymentView{
 	SessionService * sessionHandler2;
 	CartService * cartService;
 	CartService * cartService2;
-
+	
 
 	private:
-
+	int total;
 };
 #endif

@@ -135,13 +135,19 @@ int CartService::getTotal(string usuario)
     MYSQL_ROW row;
     MYSQL_RES* res;
     string response;
+    cout << "Content-type: text/html" << endl << endl;
+    cout << "<total1" << endl;
     string query = "CALL get_total( '" + usuario + "')"  ;
+    cout << "<total2" << endl;
     if(!mysql_query(conn,query.c_str())){
+      cout << "<total3" << endl;
       res = mysql_use_result(conn);
       if((row=mysql_fetch_row(res))!=NULL){
+        cout << "<total4" << endl;
         response = row[0];
       }
     }
+    cout << "<total5" << endl;
     mysql_free_result(res);
     return stoi(response);
 }
