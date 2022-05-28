@@ -18,6 +18,7 @@ class paymentView{
 	bool postResponse();
 	void printPage();
 	void printError();
+	void totalError();
 	void printHead();
 	bool checkCardValidity(string card);
 	ParserHandler * parserHandler;
