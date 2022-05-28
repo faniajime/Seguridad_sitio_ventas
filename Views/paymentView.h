@@ -20,6 +20,7 @@ class paymentView{
 	void printError();
 	void totalError();
 	void printHead();
+	void printSuccess();
 	bool checkCardValidity(string card);
 	ParserHandler * parserHandler;
     SessionService * sessionHandler;
@@ -28,9 +29,11 @@ class paymentView{
 	SessionService * sessionHandler2;
 	CartService * cartService;
 	CartService * cartService2;
+	CartService * cartService3;
 	
 
 	private:
 	int total;
+	list<productModel> carrito;
 };
 #endif

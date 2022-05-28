@@ -13,6 +13,7 @@ paymentView::paymentView(){
   headerMenuView = new HeaderMenuView();
   cartService = new CartService();
   cartService2 = new CartService();
+  cartService3 = new CartService();
   
   char* requestMethod = getenv("REQUEST_METHOD");
   char* queryString = getenv("QUERY_STRING");
@@ -52,6 +53,7 @@ bool paymentView::getResponse(){
     string token = sessionHandler->getCookieValue();
     string user = sessionHandler->getUserFromToken(token);
     this->total = cartService->getTotal(user);
+    this->carrito = cartService2->getCart(user);
     printHead();
     printPage();
     return true;
@@ -66,24 +68,33 @@ bool paymentView::postResponse(){
   char* name = parserHandler->GetArg("name");
   char* card = parserHandler->GetArg("card");
   char* date = parserHandler->GetArg("date");
-  char* cvv = parserHandler->GetArg("cvv");
-  //string token = sessionHandler->getCookieValue();
-  //string user = sessionHandler->getUserFromToken(token);
-  
-  if (name != NULL && card != NULL && date != NULL && cvv !=NULL) {
-    //printHead();
-    //int total = cartService->getTotal(user);
-    //cout << total <<endl;
-    cout << "cmamo" <<endl;
-    //if(/*checkCardValidity(card) && */cartService2->buyCart(user,total)){
-      //printHead();
-      //headerMenuView->printHeader();
-      //cout << "<br/> <h1>Your purchase was successful!</h1>" <<endl;
-   // }
-  }else{
-    printError();
-    return false;
-  }
+  char* cvv = parserHandler->GetArg("cvc");
+
+  try{
+    if (name != NULL && card != NULL && date != NULL && cvv !=NULL) {
+      
+        string token = sessionHandler2->getCookieValue();
+        string user = sessionHandler2->getUserFromToken(token);
+        cartService2->buyCart(user, this->total);
+        printSuccess();
+        return true;
+    }else{
+      printError();
+      return false;
+    }
+    }catch(...){
+        printError();
+        return true;
+    }
+
+}
+
+void paymentView::printSuccess(){
+    printHead();
+    headerMenuView->printHeader();
+    cout << "<div class='alert alert-success' role='alert'>'" <<endl;
+    cout << "Your purchase was successful" <<endl;
+    cout << "</div>" <<endl;
 }
 
 bool paymentView::checkCardValidity(string card){
@@ -237,90 +248,96 @@ void paymentView::printPage(){
 
     headerMenuView->printHeader();
     cout << "<body>" << endl;
-    cout << "<div class=' container-fluid my-5 '>" << endl;
-    cout << "<div class='row justify-content-center '>" << endl;
-    cout << "<div class='col-xl-10'>" << endl;
-    cout << "<div class='card shadow-lg '>" << endl;
-    cout << "<div class='row justify-content-around'>" << endl;
-    cout << "<div class='col-md-5'>" << endl;
-    cout << "<div class='card border-0'>" << endl;
-    cout << "<div class='card-header pb-0'>" << endl;
-    cout << "<br/>" << endl;
-    cout << "<br>" << endl;
-    cout << "<h2 class='card-title space '>Checkout</h2>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='card-body'>" << endl;
-    cout << "<div class='row mt-4'>" << endl;
-    cout << "<div class='col'><p class='text-muted mb-2'>PAYMENT DETAILS</p><hr class='mt-0'></div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='form-group'>" << endl;
-    cout << "<label for='NAME' class='small text-muted mb-1'>NAME ON CARD</label>" << endl;
-    cout << "<input type='text' class='form-control form-control-sm' name='NAME' id='NAME' aria-describedby='helpId' placeholder='Name of cardholder'>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='form-group'>" << endl;
-    cout << "<label for='NAME' class='small text-muted mb-1'>CARD NUMBER</label>" << endl;
-    cout << "<input type='text' class='form-control form-control-sm' name='NAME' id='NAME' aria-describedby='helpId' placeholder='4534 5555 5555 5555'>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='row no-gutters'>" << endl;
-    cout << "<div class='col-sm-6 pr-sm-2'>" << endl;
-    cout << "<div class='form-group'>" << endl;
-    cout << "<label for='NAME' class='small text-muted mb-1'>VALID THROUGH</label>" << endl;
-    cout << "<input type='text' class='form-control form-control-sm' name='NAME' id='NAME' aria-describedby='helpId' placeholder='06/21'>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='col-sm-6'>" << endl;
-    cout << "<div class='form-group'>" << endl;
-    cout << "<label for='NAME' class='small text-muted mb-1'>CVC CODE</label>" << endl;
-    cout << "<input type='text' class='form-control form-control-sm' name='NAME' id='NAME' aria-describedby='helpId' placeholder='183'>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='row mb-md-5'>" << endl;
-    cout << "<div class='col'>" << endl;
-    cout << "<button type='button' name=' id=' class='btn  btn-lg btn-block '>PURCHASE</button>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>    " << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='col-md-5'>" << endl;
-    cout << "<div class='card border-0 '>" << endl;
-    cout << "<div class='card-header card-2'>" << endl;
-    cout << "<p class='card-text text-muted mt-md-4  mb-2 space'>YOUR ORDER </p>" << endl;
-    cout << "<hr class='my-2'>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class='card-body pt-0'>" << endl;
-    cout << "<div class='row  justify-content-between'>" << endl;
-    cout << "<div class='col-auto col-md-7'>" << endl;
-    cout << "<div class='media flex-column flex-sm-row'>" << endl;
-    cout << "<img class=' img-fluid' src='https://i.imgur.com/6oHix28.jpg' width='62' height='62'>" << endl;
-    cout << "<div class='media-body  my-auto'>" << endl;
-    cout << "<div class='row '>" << endl;
-    cout << "<div class='col-auto'><p class='mb-0'><b>EC-GO Bag Standard</b></p><small class='text-muted'>1 Week Subscription</small></div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<div class=' pl-0 flex-sm-col col-auto  my-auto'> <p class='boxed-1'>2</p></div>" << endl;
-    cout << "<div class=' pl-0 flex-sm-col col-auto  my-auto '><p><b>179 SEK</b></p></div>" << endl;
-    cout << "</div>" << endl;
-    cout << "<hr class='my-2'>" << endl;
-    cout << "<div class='row '>" << endl;
-    cout << "<div class='col'>" << endl;
-    cout << "<div class='row justify-content-between'>" << endl;
-    cout << "<div class='col-4'><p ><b>Total</b></p></div>" << endl;
-    cout << "<div class='flex-sm-col col-auto'><p  class='mb-1'><b>537 SEK</b></p> </div>" << endl;
-    cout << "</div><hr class='my-0'>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
-    cout << "</div>" << endl;
+      cout << "<div class=' container-fluid my-5 '>" << endl;
+      cout << "<div class='row justify-content-center '>" << endl;
+      cout << "<div class='col-xl-10'>" << endl;
+      cout << "<div class='card shadow-lg '>" << endl;
+      cout << "<div class='row justify-content-around'>" << endl;
+      cout << "<div class='col-md-5'>" << endl;
+      cout << "<div class='card border-0'>" << endl;
+      cout << "<div class='card-header pb-0'>" << endl;
+      cout << "<br/>" << endl;
+      cout << "<br>" << endl;
+      cout << "<h2 class='card-title space '>Checkout</h2>" << endl;
+      cout << "</div>" << endl;
+
+      cout << "<form action='payPage' method='POST'>" <<endl;
+        cout << "<div class='card-body'>" << endl;
+        cout << "<div class='row mt-4'>" << endl;
+        cout << "<div class='col'><p class='text-muted mb-2'>PAYMENT DETAILS</p><hr class='mt-0'></div>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class='form-group'>" << endl;
+        cout << "<label for='NAME' class='small text-muted mb-1'>NAME ON CARD</label>" << endl;
+        cout << "<input type='text' class='form-control form-control-sm' name='name' id='NAME' aria-describedby='helpId' placeholder='Name of cardholder'>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class='form-group'>" << endl;
+        cout << "<label for='NAME' class='small text-muted mb-1'>CARD NUMBER</label>" << endl;
+        cout << "<input type='text' class='form-control form-control-sm' name='card' id='NAME' aria-describedby='helpId' placeholder='4534 5555 5555 5555'>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class='row no-gutters'>" << endl;
+        cout << "<div class='col-sm-6 pr-sm-2'>" << endl;
+        cout << "<div class='form-group'>" << endl;
+        cout << "<label for='NAME' class='small text-muted mb-1'>VALID THROUGH</label>" << endl;
+        cout << "<input type='text' class='form-control form-control-sm' name='date' id='NAME' aria-describedby='helpId' placeholder='06/21'>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class='col-sm-6'>" << endl;
+        cout << "<div class='form-group'>" << endl;
+        cout << "<label for='NAME' class='small text-muted mb-1'>CVC CODE</label>" << endl;
+        cout << "<input type='text' class='form-control form-control-sm' name='cvc' id='NAME' aria-describedby='helpId' placeholder='183'>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class='row mb-md-5'>" << endl;
+        cout << "<div class='col'>" << endl;
+        cout << "<button type='submit' class='btn  btn-lg btn-block '>PURCHASE</button>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>    " << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+      cout << "</form>" <<endl;
+
+      cout << "<div class='col-md-5'>" << endl;
+      cout << "<div class='card border-0 '>" << endl;
+      cout << "<div class='card-header card-2'>" << endl;
+      cout << "<p class='card-text text-muted mt-md-4  mb-2 space'>YOUR ORDER </p>" << endl;
+      cout << "<hr class='my-2'>" << endl;
+      cout << "</div>" << endl;
+      cout << "<div class='card-body pt-0'>" << endl;
+
+      for(const auto &product: carrito){
+        cout << "<div class='row  justify-content-between'>" << endl;
+        cout << "<div class='col-auto col-md-7'>" << endl;
+        cout << "<div class='media flex-column flex-sm-row'>" << endl;
+        cout << "<div class='media-body  my-auto'>" << endl;
+        cout << "<div class='row '>" << endl;
+        cout << "<div class='col-auto'><p class='mb-0'><b>" << product.name << "</b></p><small class='text-muted'>" << product.description << "</small></div>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "</div>" << endl;
+        cout << "<div class=' pl-0 flex-sm-col col-auto  my-auto '><p><b>₡" << product.cost << "</b></p></div>" << endl;
+        cout << "</div>" << endl;
+        cout << "<hr class='my-2'>" << endl;
+      }
+
+      cout << "<div class='row '>" << endl;
+      cout << "<div class='col'>" << endl;
+      cout << "<div class='row justify-content-between'>" << endl;
+      cout << "<div class='col-4'><p ><b>Total</b></p></div>" << endl;
+      cout << "<div class='flex-sm-col col-auto'><p  class='mb-1'><b>₡" << this->total <<"</b></p> </div>" << endl;
+      cout << "</div><hr class='my-0'>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
+      cout << "</div>" << endl;
     cout << "</body>" << endl;
     cout << "</html>" << endl;
 }
