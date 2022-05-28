@@ -26,9 +26,6 @@ void HeaderMenuView::printHeader() {
       cout << "<li class='nav-item'>" <<endl;
         cout << "<a class='nav-link' href='QA'>Need help?</a>" << endl;
       cout << "</li>" << endl;
-       cout << "<li class='nav-item'>" <<endl;
-        cout << "<a class='nav-link' href='#'>Need help?</a>" << endl;
-      cout << "</li>" << endl;
     cout << "</ul>" << endl;
     cout << "<form class='form-inline my-2 my-lg-0'>" <<endl;
       cout << "<a href='login'>" <<endl; 

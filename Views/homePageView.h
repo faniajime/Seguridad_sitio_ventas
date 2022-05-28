@@ -11,9 +11,9 @@ using namespace std;
 class homePageView {
     public:
         homePageView();
-        ~homePageView();
         bool getResponse();
         bool postResponse();
+        void printHead();
         void printPage();
     private:
         int refreshCount;

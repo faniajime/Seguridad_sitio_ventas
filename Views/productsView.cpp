@@ -107,13 +107,13 @@ void productsView::printPage() {
         cout << "<meta http-equiv='X-UA-Compatible' content='IE=edge'>" << endl;
         cout << "<meta name='viewport' content='width=device-width, initial-scale=1.0'>" << endl;
         cout << "<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'/>" << endl;
-        cout << "<title>Productos</title>" << endl;
+        cout << "<title>Our Market</title>" << endl;
     cout << "</head>" << endl;
     headerView->printHeader();
     cout << "<body>" << endl;
-        cout << "<h1 style='text-align:center; color:navy;'>Productos</h1><br/>" << endl;
+        cout << "<h1 style='text-align:center; color:navy;'>Our Market</h1><br/>" << endl;
             if(isLoggedIn) {
-           cout << "<h1 style='text-align:center; color:navy;'>Products currently in carrito:</h1><br/>" << endl;
+           cout << "<h1 style='text-align:center; color:navy;'>Products currently in cart:</h1><br/>" << endl;
            this->cartList = cartService2->getCart(username);
                             cout<<"<h5 style = 'text-align:center;'>"<<endl;
           for(const auto& cart : cartList){

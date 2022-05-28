@@ -6,6 +6,8 @@ all:
 	sudo g++ Views/registrationView.cpp Service/SHA256.cpp Service/ParserHandler.cpp Service/encryptionService.cpp Service/UserService.cpp Views/HeaderMenuView.cpp Service/Database.cpp -o /var/www/cgi-bin/postRegistration `mysql_config --cflags --libs` -lstdc++
 	sudo g++ Views/registerPageView.cpp Service/SHA256.cpp Service/encryptionService.cpp Service/ParserHandler.cpp Service/UserService.cpp Views/HeaderMenuView.cpp Service/Database.cpp -o /var/www/cgi-bin/registration `mysql_config --cflags --libs` -lstdc++
 	sudo g++ Service/ParserHandler.cpp Service/Database.cpp Views/productsView.cpp Views/HeaderMenuView.cpp Service/encryptionService.cpp Service/SHA256.cpp Service/SessionService.cpp Service/ProductService.cpp Models/productModel.cpp Service/CartService.cpp -o /var/www/cgi-bin/buyPage `mysql_config --cflags --libs` -lstdc++
+	sudo g++ Service/ParserHandler.cpp Service/Database.cpp Views/paymentView.cpp Views/HeaderMenuView.cpp Service/encryptionService.cpp Service/SHA256.cpp Service/SessionService.cpp Service/ProductService.cpp Models/productModel.cpp Service/CartService.cpp -o /var/www/cgi-bin/payPage `mysql_config --cflags --libs` -lstdc++
+
 homepage: 
 	sudo g++ Service/ParserHandler.cpp Service/Database.cpp  Service/SessionService.cpp Service/UserService.cpp  Service/encryptionService.cpp Service/SHA256.cpp Views/homePageView.cpp Views/HeaderMenuView.cpp -o /var/www/cgi-bin/homePage `mysql_config --cflags --libs` -lstdc++
 
