@@ -261,3 +261,12 @@ BEGIN
     WHERE productoid = productID;
 END
 //
+
+DELIMITER //
+CREATE PROCEDURE hasProductsInCart( IN usuario varchar(255))
+BEGIN
+	SELECT count(usuario) FROM carrito
+    WHERE usuario = usuario;
+END
+//
+

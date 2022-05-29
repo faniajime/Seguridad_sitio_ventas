@@ -23,6 +23,7 @@ class CartService
     bool removeProduct(string usuario, string productID); //quita un producto en especifico del carrito
     bool deleteCart(string usuario); // borra todos los productos en el carrito
     int getTotal(string usuario); // retorna total precio de productos en carrito
+    bool hasProducts(string usuario);
 
 
 };

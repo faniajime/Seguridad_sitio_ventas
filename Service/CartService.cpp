@@ -102,6 +102,27 @@ bool CartService::buyCart(string user, string total)
   return false;
 }
 
+bool CartService::hasProducts(string usuario) 
+{
+  MYSQL_ROW row;
+  MYSQL_RES* res;
+  int response ;
+  bool exists = false;
+  string query = "CALL hasProductsInCart( '" + usuario + "')"  ;
+  if(!mysql_query(conn,query.c_str())){
+    res = mysql_use_result(conn);
+    if((row=mysql_fetch_row(res))!=NULL){
+      response = stoi(row[0]);
+    }
+    if(response >= 1){
+      exists = true;
+    }
+  }
+  mysql_free_result(res);
+  return exists;
+}
+
+
 bool CartService::removeProduct(string usuario, string productID)
 {
   if (conn==NULL){
