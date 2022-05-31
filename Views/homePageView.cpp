@@ -86,8 +86,9 @@ bool homePageView::postResponse() {
       }
 
       } else {
-        cout << "Content-type: text/html\n\n"; 
-        cout << "oops, something went wrong!" << endl;
+        printHead();
+	headerMenuView->printHeader();
+	cout<<"<h2> Username or password is incorrect! </h2>" << endl;
 
       }
   

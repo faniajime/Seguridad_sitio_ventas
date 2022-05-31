@@ -81,8 +81,15 @@ bool registrationView::postResponse()
         }else {
         }  
     } else {
-      cout << "Content-type: text/html\n\n"; 
-      cout << "The user or email already exists" << endl;
+      cout << "Content-type: text/html" << endl << endl;
+    cout << "<!DOCTYPE html>" << endl;
+    cout << "<html lang = 'en'" <<endl;
+    cout << "<head> <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'rel='nofollow' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>" <<endl;
+    cout<<"<meta charset='utf-8'>"<<endl;
+    cout << "<link rel='stylesheet' href='style.css'>" << endl;
+    cout << "</head>" << endl;
+    headerMenuView->printHeader();
+    cout << "<h2 text-align:center> User or email already exists! please try again. </h2> " <<endl; 
     }
   } 
 

@@ -41,9 +41,9 @@ loginPageView::loginPageView() {
     if (strcmp(requestMethod,"GET")== 0) {
         if (sessionService->sessionExistsAsCookie()){
            string value =sessionService->getCookieValue();
+          sessionService->removeCookie();
       if (sessionService->sessionExists(value)) {
              bool isDeleted = sessionService2->deleteSession(value);
-              sessionService->removeCookie();
         }
        
      }
