@@ -49,7 +49,7 @@ cout << "Content-type: text/html" << endl << endl;
             cout<<"<input type='text' class='form-control' name='direction' placeholder='Direction' required='required'>";
             cout<<"</div>";
             cout<<"<div class='form-group'>";
-            cout<<"<input type='password' class='form-control' name='password' placeholder='Password' required='required'>";
+            cout<<"<input type='password' class='form-control' name='password' pattern='(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}' title='Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters' placeholder='Password' required='required'>";
             cout <<"</div>";
             cout<<"<div class='form-group'>";
             cout<<" <input type='password' class='form-control' name='confirm_password' placeholder='Confirm Password' required='required'>";
