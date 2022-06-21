@@ -99,7 +99,7 @@ void questionsView::printPage() {
               cout << "</div>"<< endl;
               cout << "<div class='form-outline form-white mb-4'>" <<endl;
               cout << "<label class='form-label' for='question'>Question, suggestion or complaint:</label>" << endl;
-              cout << "<textarea name='question' type='text' style='height:200px;font-size:14pt;' id='question' rows='3' class='form-control'></textarea>" << endl;
+             cout << "<input name='question' type='question' id='question' rows='3' class='form-control' required pattern='[a-zA-Z0-9 \.\,\?]+' title = 'please refrain from using special characters. We know what you are trying to do!' style='height:200px;font-size:14pt;' />" << endl;
               cout << "</div>" << endl;
               cout << "<div class='row' style='text-align:center'><div class='col text-center'><button class='btn btn-primary btn-sm' style='align-content: center;' type='submit'>Enviar</button></div></div>" << endl;
               cout<<"</form>"<<endl;
