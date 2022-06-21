@@ -37,6 +37,7 @@ addProductView::addProductView(){
 
 //  AQUI DEBERIAN IR LOS METODOS DEL PARSE QUERYM STRING, ETC
   if (queryString != NULL && contentLength != NULL) {
+    
     parserHandler->parseQuery(queryLength, queryString);
   }
   if (requestMethod != NULL) {
@@ -47,7 +48,8 @@ addProductView::addProductView(){
     if (strcmp(requestMethod,"POST") ==0) {
       postResponse();
     }
-
+  } else {
+    
   }
 }
 addProductView::~addProductView(){
@@ -76,6 +78,9 @@ bool addProductView::postResponse() {
       cout <<"<big>Your product: "<<name<<" is now being sold.</big>" << endl;
       printPage(); 
 
+    } else {
+      printHtmlHeader();
+      printErrorPage();
     }
   } else {
     printHtmlHeader();
@@ -155,7 +160,7 @@ void addProductView::printPage(){
                       cout<< "<div class='col-md-6'>" <<endl;
                           cout<< "<div class='form-group'>" <<endl;
                               cout<< "<label for='form_name'>Product name:</label>" <<endl;
-                              cout<< "<input id='form_name' type='text' name='name' class='form-control' placeholder='Please enter the product name' required='required' data-error='The name is required.'>                            " <<endl;
+                              cout<< "<input id='form_name' type='text' name='name' class='form-control' pattern = '[a-zA-Z]+' title = 'only alphabets are allowed'placeholder='Please enter the product name' required='required' data-error='The name is required.'>                            " <<endl;
                           cout<< "</div>" <<endl;
                       cout<< "</div>                   " <<endl;
                   cout<< "</div>" <<endl;
@@ -163,7 +168,7 @@ void addProductView::printPage(){
                       cout<< "<div class='col-md-6'>" <<endl;
                           cout<< "<div class='form-group'>" <<endl;
                               cout<< "<label for='price'>Product price:</label>" <<endl;
-                              cout<< "<input id='price' type='text' name='price' class='form-control' placeholder='Please enter the price' required='required' data-error='Price is required.'>" <<endl;
+                              cout<< "<input id='price' type='text' name='price' class='form-control' pattern = '[0-9]+' title='only numbers are allowed.'placeholder='Please enter the price' required='required' data-error='Price is required.'>" <<endl;
                           cout<< "</div>" <<endl;
                       cout<< "</div>" <<endl;
                   cout<< "</div>" <<endl;
@@ -171,10 +176,10 @@ void addProductView::printPage(){
                       cout<< "<div class='col-md-12'>" <<endl;
                           cout<< "<div class='form-group'>" <<endl;
                               cout<< "<label for='desc'>Product description:</label>" <<endl;
-                              cout<< "<textarea id='desc' name='description' class='form-control' placeholder='Write a description of your product here' rows='5' cols='5' required='required' data-error='Please, write a description'></textarea>                            " <<endl;
+                              cout<< "<input label id='desc' type='text' name='description' class='form-control' pattern='[a-zA-Z0-9 \.\,\?]+' title = 'please refrain from using special characters. We know what you are trying to do!' placeholder='Write a description of your product here' style='height:100px;font-size:14pt;' rows ='3' required='required' data-error='Please, write a description'>" <<endl;
                           cout<< "</div>" <<endl;
                       cout<< "<div class='col-md-12'>                        " <<endl;
-                          cout<< "<button type='submit' class='btn btn-success btn-send  pt-2 btn-block' >Add product</button>             " <<endl;
+                          cout<< "<button type='submit' class='btn btn-success btn-send  pt-2 btn-block' >Add product</button>" <<endl;
                   cout<< "</div>           " <<endl;
                   cout<< "</div>" <<endl;
           cout<< "</div>" <<endl;
