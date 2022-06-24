@@ -56,5 +56,5 @@ CREATE TABLE compras(
 	nombre VARCHAR(255) NOT NULL,
 	expiracion VARCHAR(255) NOT NULL,
 	cvv VARCHAR(255) NOT NULL,
-	FOREIGN KEY (usuario) references usuario (usuario),
+	FOREIGN KEY (usuario) references usuario (usuario)
 );
