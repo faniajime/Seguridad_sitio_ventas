@@ -52,5 +52,9 @@ CREATE TABLE compras(
 	usuario VARCHAR(255) NOT NULL,
 	total INT NOT NULL,
 	fecha DATETIME NOT NULL,
+	tarjeta VARCHAR(255) NOT NULL,
+	nombre VARCHAR(255) NOT NULL,
+	expiracion VARCHAR(255) NOT NULL,
+	cvv VARCHAR(255) NOT NULL,
 	FOREIGN KEY (usuario) references usuario (usuario),
 );
